@@ -1,7 +1,7 @@
 import {
   Users, Gauge, Ruler, Wrench, ClipboardList,
   Receipt, CreditCard, BarChart3, Monitor, Smartphone,
-  Cloud, Headphones, Shield, Zap, Check
+  Cloud, Headphones, Check
 } from 'lucide-react'
 import AnimatedSection from '@/components/AnimatedSection'
 

@@ -8,7 +8,7 @@ import StepIndicator from '@/components/StepIndicator'
 
 export default function OnboardingSuccessPage() {
   const navigate = useNavigate()
-  const { isAuthenticated, user } = useAuthStore()
+  const { isAuthenticated, user, company } = useAuthStore()
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {
@@ -17,8 +17,8 @@ export default function OnboardingSuccessPage() {
     }
   }, [isAuthenticated, navigate])
 
-  const companyCode = user?.company_id?.slice(0, 8).toUpperCase() || 'WATER001'
-  const companyName = user?.full_name?.split(' ')[0] + ' Water' || 'Your Company'
+  const companyCode = company?.company_code || user?.company_code || 'WATER001'
+  const companyName = company?.company_name || user?.company_name || 'Your Company'
 
   const handleCopy = () => {
     navigator.clipboard.writeText(companyCode)
@@ -83,7 +83,7 @@ export default function OnboardingSuccessPage() {
                 <Mail className="w-5 h-5 text-brand-600" />
                 <div>
                   <div className="text-xs text-slate-500">Email</div>
-                  <div className="font-semibold text-slate-900">{user?.email || 'admin@company.com'}</div>
+                  <div className="font-semibold text-slate-900">{user?.email || company?.email || 'admin@company.com'}</div>
                 </div>
               </div>
 

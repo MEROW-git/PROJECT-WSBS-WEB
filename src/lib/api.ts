@@ -34,6 +34,13 @@ export interface GoogleSignupData {
   company_name: string
   phone: string
   google_token: string
+  email: string
+  full_name: string
+}
+
+export interface GoogleLoginData {
+  google_token: string
+  email: string
 }
 
 export interface User {
@@ -41,9 +48,11 @@ export interface User {
   company_id: string
   full_name: string
   username: string
-  email: string
+  email?: string
   role: string
   phone?: string
+  company_name?: string
+  company_code?: string
 }
 
 export interface Company {
@@ -155,6 +164,10 @@ class APIClient {
 
   async registerWithGoogle(data: GoogleSignupData) {
     return this.request<{ company: Company; user: User; token: string }>('POST', '/auth/google/register', data)
+  }
+
+  async loginWithGoogle(data: GoogleLoginData) {
+    return this.request<{ token: string; token_type: string; user: User }>('POST', '/auth/google/login', data)
   }
 
   async verifyEmail(token: string) {

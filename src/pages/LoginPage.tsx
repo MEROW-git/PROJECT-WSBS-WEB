@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Droplets, Eye, EyeOff, ArrowRight, Loader2 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { api } from '@/lib/api'
 import { useAuthStore } from '@/store/authStore'
+import { renderGoogleButton, type GoogleAccount } from '@/lib/googleAuth'
 
 export default function LoginPage() {
   const navigate = useNavigate()
@@ -15,6 +16,20 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const googleButtonRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!googleButtonRef.current) return
+
+    renderGoogleButton(
+      googleButtonRef.current,
+      'continue_with',
+      handleGoogleAccount,
+      (googleError) => setError(googleError.message)
+    ).catch((googleError: Error) => {
+      setError(googleError.message)
+    })
+  }, [])
 
   const handleSubmit = async () => {
     setError('')
@@ -36,6 +51,29 @@ export default function LoginPage() {
       navigate('/onboarding')
     } else {
       setError(res.error?.message || 'Invalid credentials. Please try again.')
+    }
+  }
+
+  const handleGoogleAccount = async (account: GoogleAccount) => {
+    setError('')
+    setLoading(true)
+
+    try {
+      const res = await api.loginWithGoogle({
+        google_token: account.token,
+        email: account.email,
+      })
+
+      if (res.success && res.data) {
+        login(res.data.token, res.data.user)
+        navigate('/onboarding')
+      } else {
+        setError(res.error?.message || 'Google sign in failed. Please try again.')
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Google sign in could not start.')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -70,6 +108,17 @@ export default function LoginPage() {
               {error}
             </div>
           )}
+
+          <div className="mb-6 min-h-[44px]" ref={googleButtonRef} />
+
+          <div className="relative mb-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-slate-200" />
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="bg-white px-4 text-slate-400">or sign in manually</span>
+            </div>
+          </div>
 
           <div className="space-y-4">
             <div>
