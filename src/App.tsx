@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import Layout from '@/components/Layout'
 import LandingPage from '@/pages/LandingPage'
+import AboutPage from '@/pages/AboutPage'
 import FeaturesPage from '@/pages/FeaturesPage'
 import PricingPage from '@/pages/PricingPage'
 import TermsPage from '@/pages/TermsPage'
@@ -103,6 +104,7 @@ export default function App() {
         {/* Pages with layout (Navbar + Footer) */}
         <Route element={<Layout />}>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/features" element={<FeaturesPage />} />
           <Route
             path="/pricing"

@@ -7,9 +7,7 @@ const footerLinks = {
     { label: 'Pricing', href: '/pricing' },
   ],
   Company: [
-    { label: 'About', href: '#' },
-    { label: 'Contact', href: '#' },
-    { label: 'Support', href: '#' },
+    { label: 'About', href: '/about' },
   ],
   Legal: [
     { label: 'Terms of Service', href: '/terms' },
@@ -38,15 +36,15 @@ export default function Footer() {
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-sm">
                 <Mail className="w-4 h-4 text-slate-500" />
-                <span>support@waterbilling.com</span>
+                <span>puttyvireakmeas@gmail.com</span>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <Phone className="w-4 h-4 text-slate-500" />
-                <span>+1 (555) 123-4567</span>
+                <span>+855 968 087 133</span>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <MapPin className="w-4 h-4 text-slate-500" />
-                <span>San Francisco, CA</span>
+                <span>Phnom Penh, Cambodia</span>
               </div>
             </div>
           </div>
@@ -77,7 +75,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Water Billing System. All rights reserved.
           </p>
           <p className="text-sm text-slate-500">
-            Built for utility companies worldwide.
+            Built for utility companies.
           </p>
         </div>
       </div>

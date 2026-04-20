@@ -1,24 +1,33 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Menu, X, Droplets } from 'lucide-react'
+import { ChevronDown, Droplets, Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAuthStore } from '@/store/authStore'
 
 const publicNavLinks = [
   { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
   { label: 'Features', href: '/features' },
   { label: 'Pricing', href: '/pricing' },
 ]
 
 const authenticatedNavLinks = [
   { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
   { label: 'Features', href: '/features' },
   { label: 'Subscription', href: '/subscription' },
+]
+
+const legalLinks = [
+  { label: 'Terms of Service', href: '/terms' },
+  { label: 'Privacy Policy', href: '/privacy' },
+  { label: 'Subscription Policy', href: '/subscription-policy' },
 ]
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [legalOpen, setLegalOpen] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
   const { isAuthenticated, user, logout } = useAuthStore()
@@ -31,11 +40,13 @@ export default function Navbar() {
 
   useEffect(() => {
     setMobileOpen(false)
+    setLegalOpen(false)
   }, [location.pathname])
 
   const isHome = location.pathname === '/'
   const showBg = scrolled || !isHome
   const navLinks = isAuthenticated ? authenticatedNavLinks : publicNavLinks
+  const legalActive = legalLinks.some((link) => link.href === location.pathname)
 
   const handleSignOut = () => {
     const confirmed = window.confirm('Are you sure you want to sign out?')
@@ -81,6 +92,49 @@ export default function Navbar() {
                   {link.label}
                 </Link>
               ))}
+              <div
+                className="relative"
+                onMouseEnter={() => setLegalOpen(true)}
+                onMouseLeave={() => setLegalOpen(false)}
+              >
+                <button
+                  type="button"
+                  onClick={() => setLegalOpen((open) => !open)}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all inline-flex items-center gap-1 ${
+                    legalActive
+                      ? showBg ? 'text-brand-700 bg-brand-50' : 'text-white bg-white/15'
+                      : showBg ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' : 'text-white/80 hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  Legal
+                  <ChevronDown className={`w-4 h-4 transition-transform ${legalOpen ? 'rotate-180' : ''}`} />
+                </button>
+                <AnimatePresence>
+                  {legalOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 8 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute left-0 top-full mt-2 w-56 rounded-xl border border-slate-200 bg-white p-2 shadow-xl"
+                    >
+                      {legalLinks.map((link) => (
+                        <Link
+                          key={link.href}
+                          to={link.href}
+                          className={`block rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                            location.pathname === link.href
+                              ? 'bg-brand-50 text-brand-700'
+                              : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                          }`}
+                        >
+                          {link.label}
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
 
             {/* Desktop Actions */}
@@ -148,6 +202,22 @@ export default function Navbar() {
           >
             <div className="px-4 py-4 space-y-1">
               {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  to={link.href}
+                  className={`block px-4 py-3 rounded-xl text-sm font-medium ${
+                    location.pathname === link.href
+                      ? 'text-brand-700 bg-brand-50'
+                      : 'text-slate-600 hover:bg-slate-50'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <div className="px-4 pt-3 pb-1 text-xs font-semibold uppercase tracking-wide text-slate-400">
+                Legal
+              </div>
+              {legalLinks.map((link) => (
                 <Link
                   key={link.href}
                   to={link.href}

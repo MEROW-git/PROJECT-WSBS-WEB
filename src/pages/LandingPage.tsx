@@ -82,9 +82,9 @@ export default function LandingPage() {
                 Water Utility Management Solution
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.12] mb-6">
                 Manage Your Water
-                <span className="block text-gradient mt-1">Billing System</span>
+                <span className="block text-gradient mt-1 pb-2">Billing System</span>
               </h1>
 
               <p className="text-lg text-slate-300 leading-relaxed mb-8 max-w-lg">
@@ -304,23 +304,23 @@ export default function LandingPage() {
 
             <AnimatedSection delay={0.2}>
               <div className="relative">
-                <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 shadow-2xl">
+                <div className="bg-white border border-slate-200 rounded-2xl p-8 shadow-xl">
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/10">
-                      <LayoutDashboard className="w-8 h-8 text-brand-400 mb-3" />
-                      <div className="text-white font-semibold text-sm">Dashboard</div>
-                      <div className="text-slate-400 text-xs mt-1">Account overview</div>
+                    <div className="bg-brand-50 rounded-xl p-4 border border-brand-100">
+                      <LayoutDashboard className="w-8 h-8 text-brand-600 mb-3" />
+                      <div className="text-slate-900 font-semibold text-sm">Dashboard</div>
+                      <div className="text-slate-500 text-xs mt-1">Account overview</div>
                     </div>
-                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/10">
-                      <CreditCard className="w-8 h-8 text-water-400 mb-3" />
-                      <div className="text-white font-semibold text-sm">Subscription</div>
-                      <div className="text-slate-400 text-xs mt-1">Required first</div>
+                    <div className="bg-water-50 rounded-xl p-4 border border-water-100">
+                      <CreditCard className="w-8 h-8 text-water-600 mb-3" />
+                      <div className="text-slate-900 font-semibold text-sm">Subscription</div>
+                      <div className="text-slate-500 text-xs mt-1">Required first</div>
                     </div>
                   </div>
-                  <div className="mt-4 flex items-center justify-center gap-3 text-slate-400 text-xs">
-                    <div className="h-px bg-white/20 flex-1" />
+                  <div className="mt-4 flex items-center justify-center gap-3 text-slate-500 text-xs">
+                    <div className="h-px bg-slate-200 flex-1" />
                     <span>Setup complete after payment</span>
-                    <div className="h-px bg-white/20 flex-1" />
+                    <div className="h-px bg-slate-200 flex-1" />
                   </div>
                 </div>
               </div>
