@@ -6,6 +6,41 @@
  */
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
+const TOKEN_KEY = 'wb_token'
+const LAST_SEEN_KEY = 'wb_session_last_seen'
+const TAB_SESSION_KEY = 'wb_tab_session'
+const CLOSED_SESSION_TIMEOUT_MS = 15 * 60 * 1000
+
+function getStoredToken(): string | null {
+  const token = localStorage.getItem(TOKEN_KEY)
+  if (!token) return null
+
+  const hasCurrentTabSession = sessionStorage.getItem(TAB_SESSION_KEY) === 'active'
+  const lastSeen = Number(localStorage.getItem(LAST_SEEN_KEY) || '0')
+  const isExpiredAfterClose =
+    !hasCurrentTabSession &&
+    lastSeen > 0 &&
+    Date.now() - lastSeen > CLOSED_SESSION_TIMEOUT_MS
+
+  if (isExpiredAfterClose) {
+    clearStoredSession()
+    return null
+  }
+
+  touchStoredSession()
+  return token
+}
+
+function touchStoredSession() {
+  localStorage.setItem(LAST_SEEN_KEY, String(Date.now()))
+  sessionStorage.setItem(TAB_SESSION_KEY, 'active')
+}
+
+function clearStoredSession() {
+  localStorage.removeItem(TOKEN_KEY)
+  localStorage.removeItem(LAST_SEEN_KEY)
+  sessionStorage.removeItem(TAB_SESSION_KEY)
+}
 
 export interface ApiResponse<T = unknown> {
   success: boolean
@@ -41,6 +76,25 @@ export interface GoogleSignupData {
 export interface GoogleLoginData {
   google_token: string
   email: string
+}
+
+export interface ForgotPasswordData {
+  email: string
+}
+
+export interface FindResetAccountData {
+  email: string
+}
+
+export interface ResetPasswordData {
+  email: string
+  code: string
+  new_password: string
+}
+
+export interface VerifyResetCodeData {
+  email: string
+  code: string
 }
 
 export interface User {
@@ -93,15 +147,18 @@ class APIClient {
   setToken(token: string | null) {
     this.token = token
     if (token) {
-      localStorage.setItem('wb_token', token)
+      localStorage.setItem(TOKEN_KEY, token)
+      touchStoredSession()
     } else {
-      localStorage.removeItem('wb_token')
+      clearStoredSession()
     }
   }
 
   getToken(): string | null {
     if (!this.token) {
-      this.token = localStorage.getItem('wb_token')
+      this.token = getStoredToken()
+    } else {
+      touchStoredSession()
     }
     return this.token
   }
@@ -168,6 +225,22 @@ class APIClient {
 
   async loginWithGoogle(data: GoogleLoginData) {
     return this.request<{ token: string; token_type: string; user: User }>('POST', '/auth/google/login', data)
+  }
+
+  async findResetAccount(data: FindResetAccountData) {
+    return this.request<{ found: boolean; company_code: string }>('POST', '/auth/find-reset-account', data)
+  }
+
+  async forgotPassword(data: ForgotPasswordData) {
+    return this.request<{ sent: boolean; expires_in_minutes: number; development_code?: string }>('POST', '/auth/forgot-password', data)
+  }
+
+  async verifyResetCode(data: VerifyResetCodeData) {
+    return this.request<{ verified: boolean; company_code: string }>('POST', '/auth/verify-reset-code', data)
+  }
+
+  async resetPassword(data: ResetPasswordData) {
+    return this.request<{ reset: boolean }>('POST', '/auth/reset-password', data)
   }
 
   async verifyEmail(token: string) {

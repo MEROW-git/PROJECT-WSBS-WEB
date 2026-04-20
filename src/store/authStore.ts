@@ -37,7 +37,7 @@ const initialSteps: OnboardingStep[] = [
   { id: 'signup', label: 'Create Account', completed: false },
   { id: 'verify', label: 'Verify Email', completed: false },
   { id: 'subscribe', label: 'Choose Plan', completed: false },
-  { id: 'ready', label: 'Get Started', completed: false },
+  { id: 'ready', label: 'Dashboard', completed: false },
 ]
 
 export const useAuthStore = create<AuthState>((set, get) => ({
@@ -45,7 +45,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   user: null,
   company: null,
   subscription: null,
-  token: localStorage.getItem('wb_token'),
+  token: api.getToken(),
   isAuthenticated: false,
   isLoading: true,
   onboardingSteps: [...initialSteps],

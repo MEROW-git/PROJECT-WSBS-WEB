@@ -1,6 +1,6 @@
 import {
   Users, Gauge, Ruler, Wrench, ClipboardList,
-  Receipt, CreditCard, BarChart3, Monitor, Smartphone,
+  Receipt, CreditCard, BarChart3, LayoutDashboard, ShieldCheck,
   Cloud, Headphones, Check
 } from 'lucide-react'
 import AnimatedSection from '@/components/AnimatedSection'
@@ -62,7 +62,7 @@ const featureGroups = [
     icon: ClipboardList,
     color: 'from-sky-500 to-sky-600',
     features: [
-      'Record readings via desktop or mobile app',
+      'Record readings through approved staff tools',
       'Enter previous and current readings',
       'Auto-calculate units consumed',
       'Capture meter photos as evidence',
@@ -118,16 +118,16 @@ const featureGroups = [
 
 const platformFeatures = [
   {
-    icon: Monitor,
-    title: 'Desktop Application',
-    desc: 'Full-featured Windows/Mac/Linux desktop app for office administrators, cashiers, and managers.',
-    features: ['Complete admin control', 'Bill generation', 'Payment recording', 'Report viewing'],
+    icon: LayoutDashboard,
+    title: 'Web Dashboard',
+    desc: 'A clear account dashboard for company information, subscription status, and billing management.',
+    features: ['Account overview', 'Company details', 'Subscription status', 'Billing access'],
   },
   {
-    icon: Smartphone,
-    title: 'Mobile Application',
-    desc: 'Lightweight iOS/Android app designed for field meter readers.',
-    features: ['Quick reading entry', 'Photo capture', 'GPS tracking', 'Offline support'],
+    icon: ShieldCheck,
+    title: 'Controlled Access',
+    desc: 'Users only receive the features their active subscription allows.',
+    features: ['Plan-based access', 'Role controls', 'Secure sessions', 'Account status checks'],
   },
   {
     icon: Cloud,

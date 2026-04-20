@@ -2,11 +2,12 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
   Users, Gauge, ClipboardList, Receipt, CreditCard,
-  BarChart3, Monitor, Smartphone, ArrowRight, Shield,
+  BarChart3, LayoutDashboard, ArrowRight, Shield,
   Zap, Clock, ChevronRight, Droplets
 } from 'lucide-react'
 import AnimatedSection from '@/components/AnimatedSection'
 import FeatureCard from '@/components/FeatureCard'
+import { useAuthStore } from '@/store/authStore'
 
 const heroFeatures = [
   { icon: Users, label: 'Customer Management' },
@@ -29,7 +30,7 @@ const coreFeatures = [
   {
     icon: ClipboardList,
     title: 'Meter Reading',
-    description: 'Record readings via desktop or mobile app. Support for photo capture and GPS coordinates.',
+    description: 'Record readings with approved staff workflows. Support for photo capture and GPS coordinates.',
   },
   {
     icon: Receipt,
@@ -52,10 +53,12 @@ const benefits = [
   { icon: Zap, title: 'Save Time', desc: 'Automate billing and reduce manual work by 80%.' },
   { icon: Shield, title: 'Accurate Records', desc: 'Eliminate errors with digital meter tracking.' },
   { icon: Clock, title: 'Always Available', desc: 'Cloud-hosted system accessible from anywhere.' },
-  { icon: Monitor, title: 'Desktop + Mobile', desc: 'Office staff use desktop. Field staff use mobile.' },
+  { icon: LayoutDashboard, title: 'Web Dashboard', desc: 'View account, company, and subscription information in one place.' },
 ]
 
 export default function LandingPage() {
+  const { isAuthenticated, isLoading } = useAuthStore()
+
   return (
     <div>
       {/* Hero Section */}
@@ -89,15 +92,31 @@ export default function LandingPage() {
                 track meters, generate bills, and collect payments — all in one professional system.
               </p>
 
-              <div className="flex flex-wrap gap-4 mb-10">
-                <Link to="/signup" className="btn-primary">
-                  Get Started Free
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-                <Link to="/pricing" className="btn-secondary">
-                  View Plans
-                </Link>
-              </div>
+              {!isLoading && (
+                <div className="flex flex-wrap gap-4 mb-10">
+                  {isAuthenticated ? (
+                    <>
+                      <Link to="/dashboard" className="btn-primary">
+                        Go to Dashboard
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </Link>
+                      <Link to="/subscription" className="btn-secondary">
+                        Subscription
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <Link to="/signup" className="btn-primary">
+                        Create Account
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </Link>
+                      <Link to="/pricing" className="btn-secondary">
+                        View Plans
+                      </Link>
+                    </>
+                  )}
+                </div>
+              )}
 
               {/* Mini feature badges */}
               <div className="flex flex-wrap gap-3">
@@ -175,10 +194,10 @@ export default function LandingPage() {
                   className="absolute -bottom-6 -right-6 glass-dark rounded-xl p-4 w-48 shadow-xl border border-white/10"
                 >
                   <div className="flex items-center gap-2 mb-2">
-                    <Smartphone className="w-4 h-4 text-water-400" />
-                    <span className="text-white text-xs font-medium">Mobile App</span>
+                    <LayoutDashboard className="w-4 h-4 text-water-400" />
+                    <span className="text-white text-xs font-medium">Web Dashboard</span>
                   </div>
-                  <div className="text-slate-400 text-xs">Field reading ready</div>
+                  <div className="text-slate-400 text-xs">Account ready</div>
                 </motion.div>
               </div>
             </motion.div>
@@ -209,7 +228,7 @@ export default function LandingPage() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               { title: 'Small Utilities', desc: 'Local water providers serving communities of 500-5,000 connections.', icon: Users },
-              { title: 'Medium Companies', desc: 'Regional utilities with multiple zones and dedicated staff teams.', icon: Monitor },
+              { title: 'Medium Companies', desc: 'Regional utilities with multiple zones and dedicated staff teams.', icon: LayoutDashboard },
               { title: 'Large Enterprises', desc: 'City-wide or multi-municipality water distribution networks.', icon: BarChart3 },
             ].map((item, i) => (
               <AnimatedSection key={item.title} delay={i * 0.1}>
@@ -247,37 +266,36 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Desktop + Mobile Section */}
+      {/* Dashboard Section */}
       <section className="section-padding bg-white">
         <div className="container-main">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <AnimatedSection>
-              <span className="text-brand-600 font-semibold text-sm uppercase tracking-wide">Multi-Platform</span>
+              <span className="text-brand-600 font-semibold text-sm uppercase tracking-wide">Web Dashboard</span>
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-3 mb-6">
-                Desktop for the Office.<br />Mobile for the Field.
+                Your Account Information.<br />Ready After Subscription.
               </h2>
               <div className="space-y-6">
                 <div className="flex gap-4">
                   <div className="w-12 h-12 rounded-xl bg-brand-100 flex items-center justify-center flex-shrink-0">
-                    <Monitor className="w-6 h-6 text-brand-700" />
+                    <LayoutDashboard className="w-6 h-6 text-brand-700" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-slate-900 mb-1">Desktop Application</h3>
+                    <h3 className="font-semibold text-slate-900 mb-1">Company Dashboard</h3>
                     <p className="text-slate-600 text-sm">
-                      Full-featured desktop app for office staff. Manage customers, meters, bills, 
-                      payments, reports, and system settings.
+                      After subscription, users land on a web dashboard that shows company details,
+                      account information, and subscription status.
                     </p>
                   </div>
                 </div>
                 <div className="flex gap-4">
                   <div className="w-12 h-12 rounded-xl bg-water-100 flex items-center justify-center flex-shrink-0">
-                    <Smartphone className="w-6 h-6 text-water-700" />
+                    <CreditCard className="w-6 h-6 text-water-700" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-slate-900 mb-1">Mobile Application</h3>
+                    <h3 className="font-semibold text-slate-900 mb-1">Subscription First</h3>
                     <p className="text-slate-600 text-sm">
-                      Lightweight mobile app for meter readers. Record readings, capture photos, 
-                      and sync data in real-time.
+                      Account setup is only complete after the user selects and activates a paid plan.
                     </p>
                   </div>
                 </div>
@@ -289,19 +307,19 @@ export default function LandingPage() {
                 <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 shadow-2xl">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/10">
-                      <Monitor className="w-8 h-8 text-brand-400 mb-3" />
-                      <div className="text-white font-semibold text-sm">Desktop</div>
-                      <div className="text-slate-400 text-xs mt-1">Windows / Mac / Linux</div>
+                      <LayoutDashboard className="w-8 h-8 text-brand-400 mb-3" />
+                      <div className="text-white font-semibold text-sm">Dashboard</div>
+                      <div className="text-slate-400 text-xs mt-1">Account overview</div>
                     </div>
                     <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/10">
-                      <Smartphone className="w-8 h-8 text-water-400 mb-3" />
-                      <div className="text-white font-semibold text-sm">Mobile</div>
-                      <div className="text-slate-400 text-xs mt-1">iOS / Android</div>
+                      <CreditCard className="w-8 h-8 text-water-400 mb-3" />
+                      <div className="text-white font-semibold text-sm">Subscription</div>
+                      <div className="text-slate-400 text-xs mt-1">Required first</div>
                     </div>
                   </div>
                   <div className="mt-4 flex items-center justify-center gap-3 text-slate-400 text-xs">
                     <div className="h-px bg-white/20 flex-1" />
-                    <span>Sync via Cloud API</span>
+                    <span>Setup complete after payment</span>
                     <div className="h-px bg-white/20 flex-1" />
                   </div>
                 </div>
@@ -351,18 +369,35 @@ export default function LandingPage() {
                   Ready to Streamline Your Water Billing?
                 </h2>
                 <p className="text-brand-100 max-w-xl mx-auto mb-8">
-                  Join hundreds of utility companies already using our platform. 
-                  Sign up today and start managing your water billing professionally.
+                  {isAuthenticated
+                    ? 'Continue to your dashboard or manage your subscription plan.'
+                    : 'Join hundreds of utility companies already using our platform. Sign up today and start managing your water billing professionally.'}
                 </p>
-                <div className="flex flex-wrap justify-center gap-4">
-                  <Link to="/signup" className="bg-white text-brand-700 px-8 py-3.5 rounded-xl font-semibold hover:bg-brand-50 transition-colors shadow-lg inline-flex items-center gap-2">
-                    Get Started Free
-                    <ChevronRight className="w-4 h-4" />
-                  </Link>
-                  <Link to="/pricing" className="bg-white/10 backdrop-blur-sm text-white border border-white/20 px-8 py-3.5 rounded-xl font-semibold hover:bg-white/20 transition-colors inline-flex items-center gap-2">
-                    View Pricing
-                  </Link>
-                </div>
+                {!isLoading && (
+                  <div className="flex flex-wrap justify-center gap-4">
+                    {isAuthenticated ? (
+                      <>
+                        <Link to="/dashboard" className="bg-white text-brand-700 px-8 py-3.5 rounded-xl font-semibold hover:bg-brand-50 transition-colors shadow-lg inline-flex items-center gap-2">
+                          Go to Dashboard
+                          <ChevronRight className="w-4 h-4" />
+                        </Link>
+                        <Link to="/subscription" className="bg-white/10 backdrop-blur-sm text-white border border-white/20 px-8 py-3.5 rounded-xl font-semibold hover:bg-white/20 transition-colors inline-flex items-center gap-2">
+                          Subscription
+                        </Link>
+                      </>
+                    ) : (
+                      <>
+                        <Link to="/signup" className="bg-white text-brand-700 px-8 py-3.5 rounded-xl font-semibold hover:bg-brand-50 transition-colors shadow-lg inline-flex items-center gap-2">
+                          Create Account
+                          <ChevronRight className="w-4 h-4" />
+                        </Link>
+                        <Link to="/pricing" className="bg-white/10 backdrop-blur-sm text-white border border-white/20 px-8 py-3.5 rounded-xl font-semibold hover:bg-white/20 transition-colors inline-flex items-center gap-2">
+                          View Pricing
+                        </Link>
+                      </>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </AnimatedSection>

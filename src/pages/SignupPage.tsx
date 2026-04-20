@@ -97,7 +97,7 @@ export default function SignupPage() {
     if (res.success && res.data) {
       login(res.data.token, res.data.user)
       setCompany(res.data.company)
-      navigate('/onboarding')
+      navigate('/subscription')
     } else {
       setErrors({ general: res.error?.message || 'Registration failed. Please try again.' })
     }
@@ -145,7 +145,7 @@ export default function SignupPage() {
     if (res.success && res.data) {
       login(res.data.token, res.data.user)
       setCompany(res.data.company)
-      navigate('/onboarding')
+      navigate('/subscription')
     } else {
       setErrors({ general: res.error?.message || 'Google registration failed.' })
     }
@@ -183,7 +183,7 @@ export default function SignupPage() {
               <div className="text-center mb-6">
                 <h1 className="text-2xl font-bold text-slate-900">Create Your Account</h1>
                 <p className="text-sm text-slate-500 mt-1">
-                  Start your 14-day free trial. No credit card required.
+                  Create your company account, then choose a subscription plan.
                 </p>
               </div>
 

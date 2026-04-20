@@ -23,7 +23,7 @@ export default function TermsPage() {
               <p className="text-slate-600 leading-relaxed">
                 Water Billing System provides a cloud-based platform for water utility companies to 
                 manage customers, meters, readings, billing, and payments. The service includes access 
-                to desktop and mobile applications that connect to our hosted backend infrastructure.
+                to the hosted web service and connected account features.
               </p>
             </section>
 

@@ -10,12 +10,10 @@ export default function SubscriptionPolicyPage() {
 
           <div className="prose prose-slate max-w-none">
             <section className="mb-8">
-              <h2 className="text-xl font-bold text-slate-900 mb-3">Free Trial</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-3">Subscription Required</h2>
               <p className="text-slate-600 leading-relaxed">
-                All new accounts are eligible for a 14-day free trial. During the trial period, 
-                you have full access to all features of your selected plan. No credit card is 
-                required to start the trial. At the end of the trial, you must subscribe to a 
-                paid plan to continue using the service.
+                New accounts must choose and activate a paid subscription before setup is complete.
+                Access to account features begins after the selected plan is active.
               </p>
             </section>
 

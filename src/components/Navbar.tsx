@@ -4,10 +4,16 @@ import { Menu, X, Droplets } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAuthStore } from '@/store/authStore'
 
-const navLinks = [
+const publicNavLinks = [
   { label: 'Home', href: '/' },
   { label: 'Features', href: '/features' },
   { label: 'Pricing', href: '/pricing' },
+]
+
+const authenticatedNavLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'Features', href: '/features' },
+  { label: 'Subscription', href: '/subscription' },
 ]
 
 export default function Navbar() {
@@ -29,6 +35,15 @@ export default function Navbar() {
 
   const isHome = location.pathname === '/'
   const showBg = scrolled || !isHome
+  const navLinks = isAuthenticated ? authenticatedNavLinks : publicNavLinks
+
+  const handleSignOut = () => {
+    const confirmed = window.confirm('Are you sure you want to sign out?')
+    if (!confirmed) return
+
+    logout()
+    navigate('/')
+  }
 
   return (
     <>
@@ -72,11 +87,19 @@ export default function Navbar() {
             <div className="hidden md:flex items-center gap-3">
               {isAuthenticated ? (
                 <div className="flex items-center gap-3">
+                  <Link
+                    to="/dashboard"
+                    className={`text-sm font-medium px-4 py-2 rounded-lg transition-all ${
+                      showBg ? 'text-brand-700 bg-brand-50 hover:bg-brand-100' : 'text-white bg-white/15 hover:bg-white/20'
+                    }`}
+                  >
+                    Dashboard
+                  </Link>
                   <span className={`text-sm font-medium ${showBg ? 'text-slate-600' : 'text-white/80'}`}>
                     {user?.full_name || user?.email}
                   </span>
                   <button
-                    onClick={() => { logout(); navigate('/') }}
+                    onClick={handleSignOut}
                     className={`text-sm font-medium px-4 py-2 rounded-lg transition-all ${
                       showBg ? 'text-slate-600 hover:bg-slate-100' : 'text-white/80 hover:bg-white/10'
                     }`}
@@ -139,12 +162,17 @@ export default function Navbar() {
               ))}
               <div className="pt-3 border-t border-slate-100 space-y-2">
                 {isAuthenticated ? (
-                  <button
-                    onClick={() => { logout(); navigate('/') }}
-                    className="w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-red-600 hover:bg-red-50"
-                  >
-                    Sign Out
-                  </button>
+                  <>
+                    <Link to="/dashboard" className="block px-4 py-3 rounded-xl text-sm font-medium text-brand-700 bg-brand-50">
+                      Dashboard
+                    </Link>
+                    <button
+                      onClick={handleSignOut}
+                      className="w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-red-600 hover:bg-red-50"
+                    >
+                      Sign Out
+                    </button>
+                  </>
                 ) : (
                   <>
                     <Link to="/login" className="block px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50">

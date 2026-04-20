@@ -3,106 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import { Check, HelpCircle } from 'lucide-react'
 import { motion } from 'framer-motion'
 import AnimatedSection from '@/components/AnimatedSection'
-
-const plans = [
-  {
-    id: 'starter',
-    name: 'Starter',
-    description: 'Perfect for small water utilities just getting started.',
-    monthlyPrice: 29,
-    yearlyPrice: 290,
-    users: 3,
-    customers: 500,
-    features: [
-      'Up to 3 staff users',
-      'Up to 500 customers',
-      'Customer management',
-      'Meter management',
-      'Basic billing',
-      'Payment recording',
-      'Email support',
-      'Desktop app access',
-    ],
-    notIncluded: [
-      'Mobile app for readers',
-      'Advanced reports',
-      'Custom branding',
-    ],
-  },
-  {
-    id: 'professional',
-    name: 'Professional',
-    description: 'For growing utilities with expanding operations.',
-    monthlyPrice: 79,
-    yearlyPrice: 790,
-    users: 10,
-    customers: 5000,
-    features: [
-      'Up to 10 staff users',
-      'Up to 5,000 customers',
-      'Everything in Starter',
-      'Mobile app for readers',
-      'Installation tracking',
-      'Advanced billing rules',
-      'Penalty & discount rules',
-      'Standard reports',
-      'Priority support',
-    ],
-    notIncluded: [
-      'Custom integrations',
-      'Dedicated account manager',
-    ],
-    popular: true,
-  },
-  {
-    id: 'enterprise',
-    name: 'Enterprise',
-    description: 'Large-scale utility management with full features.',
-    monthlyPrice: 199,
-    yearlyPrice: 1990,
-    users: 50,
-    customers: 50000,
-    features: [
-      'Up to 50 staff users',
-      'Up to 50,000 customers',
-      'Everything in Professional',
-      'Unlimited meter readers',
-      'Advanced analytics',
-      'Custom report builder',
-      'API access',
-      'White-label options',
-      'Dedicated account manager',
-      '24/7 phone support',
-    ],
-    notIncluded: [],
-  },
-]
-
-const faqs = [
-  {
-    q: 'Can I change plans later?',
-    a: 'Yes, you can upgrade or downgrade your plan at any time. Changes take effect at the start of your next billing cycle.',
-  },
-  {
-    q: 'Is there a free trial?',
-    a: 'Yes, all plans include a 14-day free trial. No credit card required to start.',
-  },
-  {
-    q: 'What happens if I exceed my customer limit?',
-    a: "We'll notify you when you're approaching your limit. You can upgrade to a higher plan or contact us for a custom solution.",
-  },
-  {
-    q: 'Do you offer refunds?',
-    a: 'Yes, we offer a 30-day money-back guarantee if you are not satisfied with our service.',
-  },
-  {
-    q: 'Can I cancel my subscription?',
-    a: 'You can cancel anytime from your account settings. Your access continues until the end of your current billing period.',
-  },
-]
+import { getPlanPrice, pricingConfig, type BillingCycle } from '@/config/pricing'
 
 export default function PricingPage() {
-  const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly')
+  const [billingCycle, setBillingCycle] = useState<BillingCycle>('monthly')
   const navigate = useNavigate()
 
   const handleSelect = (planId: string) => {
@@ -119,7 +23,7 @@ export default function PricingPage() {
             Simple, Transparent Pricing
           </h1>
           <p className="text-lg text-slate-600 mb-8">
-            Choose the plan that fits your utility company. All plans include a 14-day free trial.
+            Choose the paid plan that fits your utility company.
           </p>
 
           {/* Billing toggle */}
@@ -144,7 +48,7 @@ export default function PricingPage() {
             >
               Yearly
               <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">
-                Save 20%
+                {pricingConfig.yearlyDiscountLabel}
               </span>
             </button>
           </div>
@@ -154,7 +58,7 @@ export default function PricingPage() {
       {/* Plans */}
       <section className="container-main mb-20">
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8 items-start">
-          {plans.map((plan, i) => (
+          {pricingConfig.plans.map((plan, i) => (
             <motion.div
               key={plan.id}
               initial={{ opacity: 0, y: 20 }}
@@ -184,7 +88,7 @@ export default function PricingPage() {
 
                 <div className="mb-6">
                   <span className={`text-4xl font-bold ${plan.popular ? 'text-white' : 'text-slate-900'}`}>
-                    ${billingCycle === 'yearly' ? plan.yearlyPrice : plan.monthlyPrice}
+                    ${getPlanPrice(plan, billingCycle)}
                   </span>
                   <span className={plan.popular ? 'text-brand-200' : 'text-slate-400'}>
                     /{billingCycle === 'yearly' ? 'year' : 'month'}
@@ -204,7 +108,7 @@ export default function PricingPage() {
                       : 'bg-brand-600 text-white hover:bg-brand-700 shadow-md shadow-brand-600/20'
                   }`}
                 >
-                  Start Free Trial
+                  Choose Plan
                 </button>
 
                 <div className="space-y-3">
@@ -234,7 +138,7 @@ export default function PricingPage() {
             Frequently Asked Questions
           </h2>
           <div className="space-y-4">
-            {faqs.map((faq, i) => (
+            {pricingConfig.pricingFaqs.map((faq, i) => (
               <div key={i} className="card p-5">
                 <div className="flex items-start gap-3">
                   <HelpCircle className="w-5 h-5 text-brand-600 flex-shrink-0 mt-0.5" />
