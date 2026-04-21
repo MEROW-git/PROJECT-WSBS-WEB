@@ -152,12 +152,12 @@ export default function SignupPage() {
   }
 
   const inputClass = (field: string) =>
-    `w-full px-4 py-3 bg-white border rounded-xl text-sm transition-all focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent ${
-      errors[field] ? 'border-red-300 focus:ring-red-500' : 'border-slate-300'
+    `w-full px-4 py-3 bg-theme-surface border rounded-xl text-sm text-theme-text-primary placeholder:text-theme-text-muted transition-all focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent ${
+      errors[field] ? 'border-red-300 focus:ring-red-500' : 'border-theme-border'
     }`
 
   const countrySelectClass =
-    'h-[46px] rounded-xl border border-slate-300 bg-white px-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent'
+    'h-[46px] rounded-xl border border-theme-border bg-theme-surface px-3 text-sm text-theme-text-secondary focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent'
 
   return (
     <div className="min-h-screen gradient-hero flex items-center justify-center px-4 py-12">
@@ -177,12 +177,12 @@ export default function SignupPage() {
         </div>
 
         {/* Card */}
-        <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8">
+        <div className="surface-panel p-6 md:p-8">
           {mode === 'form' ? (
             <>
               <div className="text-center mb-6">
-                <h1 className="text-2xl font-bold text-slate-900">Create Your Account</h1>
-                <p className="text-sm text-slate-500 mt-1">
+                <h1 className="text-2xl font-bold text-theme-text-primary">Create Your Account</h1>
+                <p className="text-sm text-theme-text-muted mt-1">
                   Create your company account, then choose a subscription plan.
                 </p>
               </div>
@@ -192,17 +192,17 @@ export default function SignupPage() {
 
               <div className="relative mb-6">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-slate-200" />
+                  <div className="w-full border-t border-theme-border" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="bg-white px-4 text-slate-400">or sign up with email</span>
+                  <span className="bg-theme-surface px-4 text-theme-text-muted">or sign up with email</span>
                 </div>
               </div>
 
               {/* Manual Form */}
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1.5">Company Name</label>
+                  <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Company Name</label>
                   <input
                     type="text"
                     value={companyName}
@@ -214,7 +214,7 @@ export default function SignupPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1.5">Admin Full Name</label>
+                  <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Admin Full Name</label>
                   <input
                     type="text"
                     value={adminName}
@@ -227,7 +227,7 @@ export default function SignupPage() {
 
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1.5">Email</label>
+                    <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Email</label>
                     <input
                       type="email"
                       value={email}
@@ -238,7 +238,7 @@ export default function SignupPage() {
                     {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1.5">Phone</label>
+                    <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Phone</label>
                     <div className="grid grid-cols-[130px_1fr] gap-2">
                       <select
                         value={phoneCountry.code}
@@ -267,7 +267,7 @@ export default function SignupPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1.5">Password</label>
+                  <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Password</label>
                   <div className="relative">
                     <input
                       type={showPassword ? 'text' : 'password'}
@@ -279,7 +279,7 @@ export default function SignupPage() {
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-theme-text-muted hover:text-theme-text-secondary"
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
@@ -288,7 +288,7 @@ export default function SignupPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1.5">Confirm Password</label>
+                  <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Confirm Password</label>
                   <input
                     type="password"
                     value={confirmPassword}
@@ -306,7 +306,7 @@ export default function SignupPage() {
                     onChange={(e) => setAgreeTerms(e.target.checked)}
                     className="mt-0.5 w-4 h-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500"
                   />
-                  <span className="text-xs text-slate-600">
+                  <span className="text-xs text-theme-text-secondary">
                     I agree to the{' '}
                     <Link to="/terms" className="text-brand-600 hover:underline">Terms of Service</Link>
                     {' '}and{' '}
@@ -343,15 +343,15 @@ export default function SignupPage() {
                 <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-3">
                   <Check className="w-6 h-6 text-green-600" />
                 </div>
-                <h2 className="text-xl font-bold text-slate-900">Almost There!</h2>
-                <p className="text-sm text-slate-500 mt-1">
+                <h2 className="text-xl font-bold text-theme-text-primary">Almost There!</h2>
+                <p className="text-sm text-theme-text-muted mt-1">
                   We just need a few more details to set up your company.
                 </p>
               </div>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1.5">Company Name</label>
+                  <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Company Name</label>
                   <input
                     type="text"
                     value={companyName}
@@ -363,7 +363,7 @@ export default function SignupPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1.5">Phone Number</label>
+                  <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Phone Number</label>
                   <div className="grid grid-cols-[136px_1fr] gap-2">
                     <select
                       value={phoneCountry.code}
@@ -390,10 +390,10 @@ export default function SignupPage() {
                   {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
                 </div>
 
-                <div className="p-3 bg-slate-50 rounded-xl">
-                  <div className="text-xs text-slate-500">Connected Google Account</div>
-                  <div className="text-sm font-medium text-slate-900">{googleData?.fullName}</div>
-                  <div className="text-xs text-slate-500">{googleData?.email}</div>
+                <div className="p-3 bg-theme-bg-secondary rounded-xl border border-theme-border">
+                  <div className="text-xs text-theme-text-muted">Connected Google Account</div>
+                  <div className="text-sm font-medium text-theme-text-primary">{googleData?.fullName}</div>
+                  <div className="text-xs text-theme-text-muted">{googleData?.email}</div>
                 </div>
 
                 {errors.general && (
@@ -412,7 +412,7 @@ export default function SignupPage() {
 
                 <button
                   onClick={() => setMode('form')}
-                  className="w-full text-center text-sm text-slate-500 hover:text-slate-700 py-2"
+                  className="w-full text-center text-sm text-theme-text-muted hover:text-theme-text-primary py-2"
                 >
                   Back to signup options
                 </button>
@@ -420,7 +420,7 @@ export default function SignupPage() {
             </>
           )}
 
-          <p className="text-center text-sm text-slate-500 mt-6">
+          <p className="text-center text-sm text-theme-text-muted mt-6">
             Already have an account?{' '}
             <Link to="/login" className="text-brand-600 font-semibold hover:underline">
               Sign in

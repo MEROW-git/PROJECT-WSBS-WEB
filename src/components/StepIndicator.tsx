@@ -28,9 +28,9 @@ export default function StepIndicator({ steps, currentStep }: StepIndicatorProps
                 <div
                   className={cn(
                     'w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold border-2 transition-all duration-300',
-                    isCompleted && 'bg-brand-600 border-brand-600 text-white',
-                    isCurrent && 'bg-white border-brand-600 text-brand-600 shadow-lg shadow-brand-600/20',
-                    isUpcoming && 'bg-white border-slate-300 text-slate-400'
+                    isCompleted && 'bg-theme-primary border-theme-primary text-white',
+                    isCurrent && 'bg-theme-surface border-theme-primary text-theme-primary shadow-glow',
+                    isUpcoming && 'bg-theme-surface border-theme-border text-theme-text-muted'
                   )}
                 >
                   {isCompleted ? <Check className="w-5 h-5" /> : index + 1}
@@ -38,9 +38,9 @@ export default function StepIndicator({ steps, currentStep }: StepIndicatorProps
                 <span
                   className={cn(
                     'mt-2 text-xs font-medium hidden sm:block',
-                    isCompleted && 'text-brand-600',
-                    isCurrent && 'text-brand-700',
-                    isUpcoming && 'text-slate-400'
+                    isCompleted && 'text-theme-primary',
+                    isCurrent && 'text-theme-primary',
+                    isUpcoming && 'text-theme-text-muted'
                   )}
                 >
                   {step.label}
@@ -53,7 +53,7 @@ export default function StepIndicator({ steps, currentStep }: StepIndicatorProps
                   <div
                     className={cn(
                       'h-full rounded-full transition-all duration-500',
-                      isCompleted ? 'bg-brand-600' : 'bg-slate-200'
+                      isCompleted ? 'bg-theme-primary' : 'bg-theme-border'
                     )}
                   />
                 </div>

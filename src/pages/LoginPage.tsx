@@ -228,12 +228,12 @@ export default function LoginPage() {
         </div>
 
         {/* Card */}
-        <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8">
+        <div className="surface-panel p-6 md:p-8">
           <div className="text-center mb-6">
-            <h1 className="text-2xl font-bold text-slate-900">
+            <h1 className="text-2xl font-bold text-theme-text-primary">
               {mode === 'login' ? 'Welcome Back' : 'Reset Password'}
             </h1>
-            <p className="text-sm text-slate-500 mt-1">
+            <p className="text-sm text-theme-text-muted mt-1">
               {mode === 'login'
                 ? 'Sign in to your company account'
                 : !authConfig.enableOtpPasswordReset
@@ -274,10 +274,10 @@ export default function LoginPage() {
 
               <div className="relative mb-6">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-slate-200" />
+                  <div className="w-full border-t border-theme-border" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="bg-white px-4 text-slate-400">or sign in manually</span>
+                  <span className="bg-theme-surface px-4 text-theme-text-muted">or sign in manually</span>
                 </div>
               </div>
             </>
@@ -287,48 +287,48 @@ export default function LoginPage() {
             {mode === 'login' ? (
               <>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1.5">Company Code</label>
+                  <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Company Code</label>
                   <input
                     type="text"
                     value={companyCode}
                     onChange={(e) => setCompanyCode(e.target.value)}
                     placeholder="e.g. WATER01"
-                    className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                    className="input-field text-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1.5">Username or Email</label>
+                  <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Username or Email</label>
                   <input
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     placeholder="Enter your username"
-                    className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                    className="input-field text-sm"
                   />
                 </div>
               </>
             ) : authConfig.enableOtpPasswordReset ? (
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1.5">Account Email</label>
+                <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Account Email</label>
                 <input
                   type="email"
                   value={resetEmail}
                   onChange={(e) => setResetEmail(e.target.value)}
                   placeholder="admin@company.com"
                   disabled={resetStep !== 'email'}
-                  className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent disabled:bg-slate-50 disabled:text-slate-500"
+                  className="input-field text-sm disabled:opacity-60"
                 />
               </div>
             ) : (
-              <div className="rounded-xl border border-brand-200 bg-brand-50 p-4">
+              <div className="rounded-xl border border-theme-primary/20 bg-theme-primary/10 p-4">
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center shrink-0">
                     <Send className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="text-sm font-semibold text-slate-900">Password reset is handled by the Super Admin.</div>
-                    <p className="mt-1 text-sm text-slate-600">
+                    <div className="text-sm font-semibold text-theme-text-primary">Password reset is handled by the Super Admin.</div>
+                    <p className="mt-1 text-sm text-theme-text-secondary">
                       Contact {authConfig.passwordResetContact.name} on Telegram:
                     </p>
                     <a
@@ -345,27 +345,27 @@ export default function LoginPage() {
             )}
 
             {authConfig.enableOtpPasswordReset && mode === 'reset' && resetStep === 'password' && resetCompanyCode && (
-              <div className="rounded-xl border border-brand-200 bg-brand-50 p-4">
-                <div className="text-xs font-medium text-brand-600">Your Company Code</div>
-                <div className="mt-1 text-lg font-bold tracking-wider text-brand-900">{resetCompanyCode}</div>
+                <div className="rounded-xl border border-theme-primary/20 bg-theme-primary/10 p-4">
+                <div className="text-xs font-medium text-theme-primary">Your Company Code</div>
+                <div className="mt-1 text-lg font-bold tracking-wider text-theme-text-primary">{resetCompanyCode}</div>
               </div>
             )}
 
             {mode === 'login' ? (
               <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">Password</label>
+              <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Password</label>
               <div className="relative">
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
-                  className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent pr-10"
+                  className="input-field text-sm pr-10"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-theme-text-muted hover:text-theme-text-secondary"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -375,36 +375,36 @@ export default function LoginPage() {
               <>
                 {resetStep === 'code' && (
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1.5">Reset Code</label>
+                    <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Reset Code</label>
                     <input
                       type="text"
                       value={resetCode}
                       onChange={(e) => setResetCode(e.target.value)}
                       placeholder="Enter the code from email"
-                      className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                      className="input-field text-sm"
                     />
                   </div>
                 )}
                 {resetStep === 'password' && (
                   <>
                     <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-1.5">New Password</label>
+                      <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">New Password</label>
                       <input
                         type="password"
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
                         placeholder="Enter new password"
-                        className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                        className="input-field text-sm"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-1.5">Confirm New Password</label>
+                      <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Confirm New Password</label>
                       <input
                         type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         placeholder="Repeat new password"
-                        className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                        className="input-field text-sm"
                       />
                     </div>
                   </>
@@ -428,7 +428,7 @@ export default function LoginPage() {
               <div className="flex items-center justify-between">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input type="checkbox" className="w-4 h-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500" />
-                  <span className="text-sm text-slate-600">Remember me</span>
+                  <span className="text-sm text-theme-text-secondary">Remember me</span>
                 </label>
                 <button
                   type="button"
@@ -507,14 +507,14 @@ export default function LoginPage() {
                   setDevelopmentCode('')
                   setMode('login')
                 }}
-                className="w-full text-center text-sm text-slate-500 hover:text-slate-700 py-2"
+                className="w-full text-center text-sm text-theme-text-muted hover:text-theme-text-primary py-2"
               >
                 Back to sign in
               </button>
             )}
           </div>
 
-          <p className="text-center text-sm text-slate-500 mt-6">
+          <p className="text-center text-sm text-theme-text-muted mt-6">
             Don't have an account?{' '}
             <Link to="/signup" className="text-brand-600 font-semibold hover:underline">
               Sign up

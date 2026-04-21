@@ -65,8 +65,8 @@ export default function LandingPage() {
       <section className="relative min-h-screen gradient-hero overflow-hidden">
         {/* Background pattern */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-brand-500 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-water-500 rounded-full blur-3xl" />
+          <div className="absolute top-20 left-10 w-72 h-72 rounded-full blur-3xl bg-[hsl(var(--hero-overlay-primary))]" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full blur-3xl bg-[hsl(var(--hero-overlay-secondary))]" />
         </div>
 
         <div className="relative container-main pt-32 pb-20 min-h-screen flex flex-col justify-center">
@@ -121,7 +121,7 @@ export default function LandingPage() {
               {/* Mini feature badges */}
               <div className="flex flex-wrap gap-3">
                 {heroFeatures.map((f) => (
-                  <div key={f.label} className="flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-lg text-white/80 text-xs font-medium border border-white/10">
+                  <div key={f.label} className="chip bg-white/10 text-white/80 border-white/10 backdrop-blur-sm">
                     <f.icon className="w-3.5 h-3.5" />
                     {f.label}
                   </div>
@@ -161,7 +161,7 @@ export default function LandingPage() {
                       { label: 'Meters', value: '1,180', color: 'text-water-400' },
                       { label: 'Revenue', value: '$12.4K', color: 'text-emerald-400' },
                     ].map((stat) => (
-                      <div key={stat.label} className="bg-white/5 rounded-xl p-3 border border-white/5">
+                      <div key={stat.label} className="demo-tile p-3">
                         <div className={`text-lg font-bold ${stat.color}`}>{stat.value}</div>
                         <div className="text-slate-400 text-xs">{stat.label}</div>
                       </div>
@@ -176,7 +176,7 @@ export default function LandingPage() {
                       { action: 'Bill generated #B2045', time: '15 min ago', icon: Receipt },
                       { action: 'Payment received $85', time: '1 hr ago', icon: CreditCard },
                     ].map((item, i) => (
-                      <div key={i} className="flex items-center gap-3 p-2.5 bg-white/5 rounded-lg border border-white/5">
+                      <div key={i} className="flex items-center gap-3 p-2.5 demo-tile">
                         <item.icon className="w-4 h-4 text-brand-400" />
                         <div className="flex-1">
                           <div className="text-white text-xs font-medium">{item.action}</div>
@@ -207,20 +207,20 @@ export default function LandingPage() {
         {/* Bottom wave */}
         <div className="absolute bottom-0 left-0 right-0">
           <svg viewBox="0 0 1440 100" fill="none" className="w-full">
-            <path d="M0 50C240 100 480 0 720 50C960 100 1200 0 1440 50V100H0V50Z" fill="white" />
+            <path className="fill-theme-bg" d="M0 50C240 100 480 0 720 50C960 100 1200 0 1440 50V100H0V50Z" />
           </svg>
         </div>
       </section>
 
       {/* Who It's For */}
-      <section className="section-padding bg-white">
+      <section className="section-padding section-surface">
         <div className="container-main">
           <AnimatedSection className="text-center mb-16">
-            <span className="text-brand-600 font-semibold text-sm uppercase tracking-wide">Who It's For</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-3 mb-4">
+            <span className="eyebrow">Who It's For</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-theme-text-primary mt-3 mb-4">
               Built for Water Utility Companies
             </h2>
-            <p className="text-slate-600 max-w-2xl mx-auto">
+            <p className="text-theme-text-secondary max-w-2xl mx-auto">
               Whether you manage 100 or 10,000 connections, our system scales with your business needs.
             </p>
           </AnimatedSection>
@@ -233,11 +233,11 @@ export default function LandingPage() {
             ].map((item, i) => (
               <AnimatedSection key={item.title} delay={i * 0.1}>
                 <div className="text-center p-8">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-100 to-water-100 flex items-center justify-center mx-auto mb-5">
-                    <item.icon className="w-8 h-8 text-brand-700" />
+                  <div className="w-16 h-16 rounded-2xl bg-theme-primary/10 flex items-center justify-center mx-auto mb-5">
+                    <item.icon className="w-8 h-8 text-theme-primary" />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-3">{item.title}</h3>
-                  <p className="text-slate-600">{item.desc}</p>
+                  <h3 className="text-xl font-bold text-theme-text-primary mb-3">{item.title}</h3>
+                  <p className="text-theme-text-secondary">{item.desc}</p>
                 </div>
               </AnimatedSection>
             ))}
@@ -246,14 +246,14 @@ export default function LandingPage() {
       </section>
 
       {/* Core Features */}
-      <section className="section-padding bg-slate-50">
+      <section className="section-padding section-muted">
         <div className="container-main">
           <AnimatedSection className="text-center mb-16">
-            <span className="text-brand-600 font-semibold text-sm uppercase tracking-wide">Features</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-3 mb-4">
+            <span className="eyebrow">Features</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-theme-text-primary mt-3 mb-4">
               Everything You Need
             </h2>
-            <p className="text-slate-600 max-w-2xl mx-auto">
+            <p className="text-theme-text-secondary max-w-2xl mx-auto">
               A complete suite of tools to manage your water utility operations from end to end.
             </p>
           </AnimatedSection>
@@ -267,34 +267,34 @@ export default function LandingPage() {
       </section>
 
       {/* Dashboard Section */}
-      <section className="section-padding bg-white">
+      <section className="section-padding section-surface">
         <div className="container-main">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <AnimatedSection>
-              <span className="text-brand-600 font-semibold text-sm uppercase tracking-wide">Web Dashboard</span>
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-3 mb-6">
+              <span className="eyebrow">Web Dashboard</span>
+              <h2 className="text-3xl md:text-4xl font-bold text-theme-text-primary mt-3 mb-6">
                 Your Account Information.<br />Ready After Subscription.
               </h2>
               <div className="space-y-6">
                 <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-brand-100 flex items-center justify-center flex-shrink-0">
-                    <LayoutDashboard className="w-6 h-6 text-brand-700" />
+                  <div className="w-12 h-12 rounded-xl bg-theme-primary/10 flex items-center justify-center flex-shrink-0">
+                    <LayoutDashboard className="w-6 h-6 text-theme-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-slate-900 mb-1">Company Dashboard</h3>
-                    <p className="text-slate-600 text-sm">
+                    <h3 className="font-semibold text-theme-text-primary mb-1">Company Dashboard</h3>
+                    <p className="text-theme-text-secondary text-sm">
                       After subscription, users land on a web dashboard that shows company details,
                       account information, and subscription status.
                     </p>
                   </div>
                 </div>
                 <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-water-100 flex items-center justify-center flex-shrink-0">
-                    <CreditCard className="w-6 h-6 text-water-700" />
+                  <div className="w-12 h-12 rounded-xl bg-theme-accent/10 flex items-center justify-center flex-shrink-0">
+                    <CreditCard className="w-6 h-6 text-theme-accent" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-slate-900 mb-1">Subscription First</h3>
-                    <p className="text-slate-600 text-sm">
+                    <h3 className="font-semibold text-theme-text-primary mb-1">Subscription First</h3>
+                    <p className="text-theme-text-secondary text-sm">
                       Account setup is only complete after the user selects and activates a paid plan.
                     </p>
                   </div>
@@ -304,23 +304,23 @@ export default function LandingPage() {
 
             <AnimatedSection delay={0.2}>
               <div className="relative">
-                <div className="bg-white border border-slate-200 rounded-2xl p-8 shadow-xl">
+                <div className="surface-panel p-8">
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-brand-50 rounded-xl p-4 border border-brand-100">
-                      <LayoutDashboard className="w-8 h-8 text-brand-600 mb-3" />
-                      <div className="text-slate-900 font-semibold text-sm">Dashboard</div>
-                      <div className="text-slate-500 text-xs mt-1">Account overview</div>
+                    <div className="surface-soft p-4 bg-theme-primary/10">
+                      <LayoutDashboard className="w-8 h-8 text-theme-primary mb-3" />
+                      <div className="text-theme-text-primary font-semibold text-sm">Dashboard</div>
+                      <div className="text-theme-text-muted text-xs mt-1">Account overview</div>
                     </div>
-                    <div className="bg-water-50 rounded-xl p-4 border border-water-100">
-                      <CreditCard className="w-8 h-8 text-water-600 mb-3" />
-                      <div className="text-slate-900 font-semibold text-sm">Subscription</div>
-                      <div className="text-slate-500 text-xs mt-1">Required first</div>
+                    <div className="surface-soft p-4 bg-theme-accent/10">
+                      <CreditCard className="w-8 h-8 text-theme-accent mb-3" />
+                      <div className="text-theme-text-primary font-semibold text-sm">Subscription</div>
+                      <div className="text-theme-text-muted text-xs mt-1">Required first</div>
                     </div>
                   </div>
-                  <div className="mt-4 flex items-center justify-center gap-3 text-slate-500 text-xs">
-                    <div className="h-px bg-slate-200 flex-1" />
+                  <div className="mt-4 flex items-center justify-center gap-3 text-theme-text-muted text-xs">
+                    <div className="h-px bg-theme-border flex-1" />
                     <span>Setup complete after payment</span>
-                    <div className="h-px bg-slate-200 flex-1" />
+                    <div className="h-px bg-theme-border flex-1" />
                   </div>
                 </div>
               </div>
@@ -330,11 +330,11 @@ export default function LandingPage() {
       </section>
 
       {/* Why Choose */}
-      <section className="section-padding bg-slate-50">
+      <section className="section-padding section-muted">
         <div className="container-main">
           <AnimatedSection className="text-center mb-16">
-            <span className="text-brand-600 font-semibold text-sm uppercase tracking-wide">Why Us</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-3 mb-4">
+            <span className="eyebrow">Why Us</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-theme-text-primary mt-3 mb-4">
               Why Choose Water Billing?
             </h2>
           </AnimatedSection>
@@ -346,8 +346,8 @@ export default function LandingPage() {
                   <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-500 to-water-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-brand-500/25">
                     <b.icon className="w-7 h-7 text-white" />
                   </div>
-                  <h3 className="font-bold text-slate-900 mb-2">{b.title}</h3>
-                  <p className="text-sm text-slate-600">{b.desc}</p>
+                  <h3 className="font-bold text-theme-text-primary mb-2">{b.title}</h3>
+                  <p className="text-sm text-theme-text-secondary">{b.desc}</p>
                 </div>
               </AnimatedSection>
             ))}
@@ -359,10 +359,10 @@ export default function LandingPage() {
       <section className="py-20 px-4">
         <div className="container-main">
           <AnimatedSection>
-            <div className="relative rounded-3xl bg-gradient-to-br from-brand-700 via-brand-800 to-slate-900 overflow-hidden">
+            <div className="relative rounded-3xl gradient-brand overflow-hidden shadow-theme">
               <div className="absolute inset-0 opacity-20">
-                <div className="absolute top-0 right-0 w-96 h-96 bg-brand-500 rounded-full blur-3xl" />
-                <div className="absolute bottom-0 left-0 w-72 h-72 bg-water-500 rounded-full blur-3xl" />
+                <div className="absolute top-0 right-0 w-96 h-96 bg-[hsl(var(--hero-overlay-primary))] rounded-full blur-3xl" />
+                <div className="absolute bottom-0 left-0 w-72 h-72 bg-[hsl(var(--hero-overlay-secondary))] rounded-full blur-3xl" />
               </div>
               <div className="relative px-8 py-16 md:px-16 md:py-20 text-center">
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">

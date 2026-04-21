@@ -7,7 +7,7 @@ export default function Layout() {
   const isAuthPage = ['/login', '/signup'].includes(location.pathname)
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="app-shell">
       {!isAuthPage && <Navbar />}
       <main className="flex-1">
         <Outlet />

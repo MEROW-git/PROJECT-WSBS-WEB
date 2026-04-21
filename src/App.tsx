@@ -46,8 +46,8 @@ function ProtectedRoute({ children }: { children: JSX.Element }) {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="h-10 w-10 rounded-full border-4 border-brand-200 border-t-brand-600 animate-spin" />
+      <div className="min-h-screen bg-theme-bg-secondary flex items-center justify-center">
+        <div className="h-10 w-10 rounded-full border-4 border-theme-primary/20 border-t-theme-primary animate-spin" />
       </div>
     )
   }
@@ -64,8 +64,8 @@ function RedirectIfAuthenticated({ children }: { children: JSX.Element }) {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="h-10 w-10 rounded-full border-4 border-brand-200 border-t-brand-600 animate-spin" />
+      <div className="min-h-screen bg-theme-bg-secondary flex items-center justify-center">
+        <div className="h-10 w-10 rounded-full border-4 border-theme-primary/20 border-t-theme-primary animate-spin" />
       </div>
     )
   }

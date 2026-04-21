@@ -3,6 +3,74 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    color-scheme: light;
+    --bg: 0 0% 100%;
+    --bg-secondary: 210 40% 98%;
+    --surface: 0 0% 100%;
+    --surface-hover: 214 32% 95%;
+    --card: 0 0% 100%;
+    --elevated: 0 0% 100%;
+    --border: 214 32% 88%;
+    --primary: 221 83% 53%;
+    --primary-hover: 224 76% 48%;
+    --secondary: 199 89% 48%;
+    --accent: 198 93% 60%;
+    --text-primary: 222 47% 11%;
+    --text-secondary: 215 25% 27%;
+    --text-muted: 215 16% 47%;
+    --success: 142 72% 29%;
+    --warning: 38 92% 50%;
+    --danger: 0 72% 51%;
+    --shadow: 0 18px 50px hsl(222 47% 11% / 0.12);
+    --shadow-soft: 0 10px 30px hsl(222 47% 11% / 0.08);
+    --glow: 0 18px 42px hsl(221 83% 53% / 0.22);
+    --hero-gradient-start: 222 47% 11%;
+    --hero-gradient-mid: 215 35% 18%;
+    --hero-gradient-end: 207 58% 23%;
+    --hero-overlay-primary: 221 83% 53%;
+    --hero-overlay-secondary: 199 89% 48%;
+    --gradient-text-start: 213 94% 68%;
+    --gradient-text-end: 199 95% 62%;
+    --glass-bg: 222 47% 11% / 0.82;
+    --glass-border: 0 0% 100% / 0.12;
+    --wave-fill: var(--bg);
+  }
+
+  .dark {
+    color-scheme: dark;
+    --bg: 224 46% 7%;
+    --bg-secondary: 222 42% 10%;
+    --surface: 222 38% 13%;
+    --surface-hover: 218 32% 18%;
+    --card: 222 38% 12%;
+    --elevated: 220 36% 16%;
+    --border: 217 25% 24%;
+    --primary: 217 91% 60%;
+    --primary-hover: 213 94% 68%;
+    --secondary: 199 89% 56%;
+    --accent: 190 92% 58%;
+    --text-primary: 210 40% 98%;
+    --text-secondary: 214 32% 82%;
+    --text-muted: 215 20% 64%;
+    --success: 142 70% 45%;
+    --warning: 43 96% 56%;
+    --danger: 0 84% 66%;
+    --shadow: 0 24px 70px hsl(0 0% 0% / 0.42);
+    --shadow-soft: 0 14px 34px hsl(0 0% 0% / 0.3);
+    --glow: 0 18px 46px hsl(199 89% 48% / 0.16);
+    --hero-gradient-start: 224 48% 7%;
+    --hero-gradient-mid: 222 44% 11%;
+    --hero-gradient-end: 209 54% 17%;
+    --hero-overlay-primary: 221 83% 53%;
+    --hero-overlay-secondary: 190 92% 58%;
+    --gradient-text-start: 213 94% 72%;
+    --gradient-text-end: 190 95% 66%;
+    --glass-bg: 222 47% 8% / 0.78;
+    --glass-border: 199 89% 72% / 0.16;
+    --wave-fill: var(--bg);
+  }
+
   html {
     scroll-behavior: smooth;
   }
@@ -11,38 +79,43 @@
     font-family: 'Inter', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: #0f172a;
-    background: #ffffff;
+    color: hsl(var(--text-primary));
+    background: hsl(var(--bg));
   }
 
   ::selection {
-    background-color: #dbeafe;
-    color: #1e40af;
+    background-color: hsl(var(--primary) / 0.18);
+    color: hsl(var(--primary-hover));
   }
 }
 
 @layer components {
+  .app-shell {
+    @apply min-h-screen flex flex-col bg-theme-bg text-theme-text-primary transition-colors duration-300;
+  }
+
   .btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 bg-brand-600 text-white font-semibold rounded-xl 
-           hover:bg-brand-700 active:bg-brand-800 transition-all duration-200 
-           focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2
-           disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-brand-600/20;
+    @apply inline-flex items-center justify-center px-6 py-3 bg-theme-primary text-white font-semibold rounded-xl 
+           hover:bg-theme-primary-hover active:scale-[0.99] transition-all duration-200 
+           focus:outline-none focus:ring-2 focus:ring-theme-primary focus:ring-offset-2 focus:ring-offset-theme-bg
+           disabled:opacity-50 disabled:cursor-not-allowed shadow-glow;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center px-6 py-3 bg-white text-brand-700 font-semibold rounded-xl 
-           border-2 border-brand-200 hover:bg-brand-50 active:bg-brand-100 transition-all duration-200
-           focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2;
+    @apply inline-flex items-center justify-center px-6 py-3 bg-theme-surface text-theme-primary font-semibold rounded-xl 
+           border-2 border-theme-border hover:bg-theme-surface-hover active:scale-[0.99] transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-theme-primary focus:ring-offset-2 focus:ring-offset-theme-bg;
   }
 
   .btn-ghost {
-    @apply inline-flex items-center justify-center px-4 py-2 text-slate-600 font-medium rounded-lg
-           hover:bg-slate-100 hover:text-slate-900 transition-all duration-200;
+    @apply inline-flex items-center justify-center px-4 py-2 text-theme-text-secondary font-medium rounded-lg
+           hover:bg-theme-surface-hover hover:text-theme-text-primary transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-theme-primary focus:ring-offset-2 focus:ring-offset-theme-bg;
   }
 
   .card {
-    @apply bg-white rounded-2xl border border-slate-200/80 shadow-sm 
-           hover:shadow-md hover:border-slate-300 transition-all duration-300;
+    @apply bg-theme-card rounded-2xl border border-theme-border shadow-sm 
+           hover:shadow-theme hover:border-theme-primary/30 transition-all duration-300;
   }
 
   .card-hover {
@@ -50,9 +123,9 @@
   }
 
   .input-field {
-    @apply w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-slate-900 
-           placeholder:text-slate-400
-           focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent
+    @apply w-full px-4 py-3 bg-theme-surface border border-theme-border rounded-xl text-theme-text-primary
+           placeholder:text-theme-text-muted
+           focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent
            transition-all duration-200;
   }
 
@@ -65,23 +138,78 @@
   }
 
   .gradient-brand {
-    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #2563eb 100%);
+    background: linear-gradient(135deg, hsl(var(--hero-gradient-start)) 0%, hsl(var(--hero-gradient-mid)) 50%, hsl(var(--primary)) 100%);
   }
 
   .gradient-hero {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, #1e3a5f 100%);
+    background: linear-gradient(135deg, hsl(var(--hero-gradient-start)) 0%, hsl(var(--hero-gradient-mid)) 42%, hsl(var(--hero-gradient-end)) 100%);
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-400 to-water-400;
+    background-image: linear-gradient(90deg, hsl(var(--gradient-text-start)), hsl(var(--gradient-text-end)));
+    @apply bg-clip-text text-transparent;
   }
 
   .glass {
-    @apply bg-white/80 backdrop-blur-xl border border-white/20;
+    @apply bg-theme-surface/80 backdrop-blur-xl border border-theme-border;
   }
 
   .glass-dark {
-    @apply bg-slate-900/80 backdrop-blur-xl border border-white/10;
+    background-color: hsl(var(--glass-bg));
+    border-color: hsl(var(--glass-border));
+    @apply backdrop-blur-xl;
+  }
+
+  .section-surface {
+    @apply bg-theme-bg text-theme-text-primary;
+  }
+
+  .section-muted {
+    @apply bg-theme-bg-secondary text-theme-text-primary;
+  }
+
+  .surface-card {
+    @apply bg-theme-card border border-theme-border rounded-2xl shadow-sm;
+  }
+
+  .surface-panel {
+    @apply bg-theme-surface border border-theme-border rounded-2xl shadow-theme;
+  }
+
+  .surface-soft {
+    @apply bg-theme-bg-secondary border border-theme-border rounded-xl;
+  }
+
+  .eyebrow {
+    @apply text-theme-primary font-semibold text-sm uppercase tracking-wide;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-lg border border-theme-border bg-theme-surface px-3 py-1.5 text-xs font-medium text-theme-text-secondary;
+  }
+
+  .badge-success {
+    @apply inline-flex items-center gap-2 rounded-full bg-theme-success/10 px-3 py-1.5 text-sm font-semibold text-theme-success;
+  }
+
+  .badge-warning {
+    @apply rounded-full bg-theme-warning px-4 py-1 text-xs font-bold uppercase tracking-wide text-slate-950;
+  }
+
+  .demo-tile {
+    @apply rounded-xl bg-white/5 border border-white/10;
+  }
+
+  .demo-text-primary {
+    @apply text-white;
+  }
+
+  .demo-text-secondary {
+    @apply text-slate-300;
+  }
+
+  .demo-text-muted {
+    @apply text-slate-400;
   }
 }
 

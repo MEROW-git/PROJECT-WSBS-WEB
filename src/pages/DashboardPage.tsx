@@ -61,40 +61,40 @@ export default function DashboardPage() {
   ]
 
   return (
-    <div className="pt-28 pb-16 min-h-screen bg-slate-50">
+    <div className="pt-28 pb-16 min-h-screen bg-theme-bg-secondary">
       <div className="container-main max-w-5xl">
         <div className="mb-8">
-          <div className="inline-flex items-center gap-2 rounded-full bg-green-100 px-4 py-2 text-sm font-semibold text-green-700 mb-4">
+          <div className="badge-success mb-4">
             <CheckCircle className="h-4 w-4" />
             Account setup complete
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-slate-900">
+          <h1 className="text-3xl md:text-4xl font-bold text-theme-text-primary">
             Welcome, {user?.full_name || 'Admin'}
           </h1>
-          <p className="text-slate-600 mt-3 max-w-2xl">
+          <p className="text-theme-text-secondary mt-3 max-w-2xl">
             Your subscription is active. You can now manage your water billing account from this web dashboard.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
           {details.map((item) => (
-            <div key={item.label} className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+            <div key={item.label} className="surface-card p-5">
               <div className="flex items-center gap-3 mb-4">
-                <div className="h-10 w-10 rounded-xl bg-brand-50 text-brand-700 flex items-center justify-center">
+                <div className="h-10 w-10 rounded-xl bg-theme-primary/10 text-theme-primary flex items-center justify-center">
                   <item.icon className="h-5 w-5" />
                 </div>
-                <span className="text-sm font-medium text-slate-500">{item.label}</span>
+                <span className="text-sm font-medium text-theme-text-muted">{item.label}</span>
               </div>
-              <div className="text-lg font-bold text-slate-900 break-words">
+              <div className="text-lg font-bold text-theme-text-primary break-words">
                 {isRefreshingProfile && item.value === 'Not available' ? 'Loading...' : item.value}
               </div>
             </div>
           ))}
         </div>
 
-        <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-          <h2 className="text-xl font-bold text-slate-900 mb-3">You're done</h2>
-          <p className="text-slate-600">
+        <div className="surface-card p-6">
+          <h2 className="text-xl font-bold text-theme-text-primary mb-3">You're done</h2>
+          <p className="text-theme-text-secondary">
             Your company account is ready. Keep this dashboard open for your account information and subscription status.
           </p>
         </div>

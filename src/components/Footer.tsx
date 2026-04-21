@@ -18,7 +18,7 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-950 text-slate-400">
+    <footer className="bg-theme-bg-secondary text-theme-text-secondary border-t border-theme-border">
       <div className="container-main py-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand */}
@@ -27,7 +27,7 @@ export default function Footer() {
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-600 to-water-500 flex items-center justify-center">
                 <Droplets className="w-4 h-4 text-white" />
               </div>
-              <span className="font-bold text-base text-white">WaterBilling</span>
+              <span className="font-bold text-base text-theme-text-primary">WaterBilling</span>
             </Link>
             <p className="text-sm leading-relaxed mb-4 max-w-sm">
               Professional water billing management system for utility companies. 
@@ -35,15 +35,15 @@ export default function Footer() {
             </p>
             <div className="space-y-2">
               <div className="flex items-center gap-2.5 text-sm">
-                <Mail className="w-3.5 h-3.5 text-slate-500" />
+                <Mail className="w-3.5 h-3.5 text-theme-text-muted" />
                 <span>puttyvireakmeas@gmail.com</span>
               </div>
               <div className="flex items-center gap-2.5 text-sm">
-                <Phone className="w-3.5 h-3.5 text-slate-500" />
+                <Phone className="w-3.5 h-3.5 text-theme-text-muted" />
                 <span>+855 968 087 133</span>
               </div>
               <div className="flex items-center gap-2.5 text-sm">
-                <MapPin className="w-3.5 h-3.5 text-slate-500" />
+                <MapPin className="w-3.5 h-3.5 text-theme-text-muted" />
                 <span>Phnom Penh, Cambodia</span>
               </div>
             </div>
@@ -52,13 +52,13 @@ export default function Footer() {
           {/* Link columns */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h3 className="font-semibold text-white text-sm mb-3">{title}</h3>
+              <h3 className="font-semibold text-theme-text-primary text-sm mb-3">{title}</h3>
               <ul className="space-y-2">
                 {links.map((link) => (
                   <li key={link.label}>
                     <Link
                       to={link.href}
-                      className="text-sm hover:text-white transition-colors"
+                      className="text-sm hover:text-theme-text-primary transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -70,11 +70,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-8 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="mt-8 pt-6 border-t border-theme-border flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-sm">
             &copy; {new Date().getFullYear()} Water Billing System. All rights reserved.
           </p>
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-theme-text-muted">
             Built for utility companies.
           </p>
         </div>

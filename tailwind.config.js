@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -36,6 +37,28 @@ export default {
           800: '#075985',
           900: '#0c4a6e',
         },
+        theme: {
+          bg: 'hsl(var(--bg) / <alpha-value>)',
+          'bg-secondary': 'hsl(var(--bg-secondary) / <alpha-value>)',
+          surface: 'hsl(var(--surface) / <alpha-value>)',
+          'surface-hover': 'hsl(var(--surface-hover) / <alpha-value>)',
+          card: 'hsl(var(--card) / <alpha-value>)',
+          elevated: 'hsl(var(--elevated) / <alpha-value>)',
+          border: 'hsl(var(--border) / <alpha-value>)',
+          primary: 'hsl(var(--primary) / <alpha-value>)',
+          'primary-hover': 'hsl(var(--primary-hover) / <alpha-value>)',
+          accent: 'hsl(var(--accent) / <alpha-value>)',
+          'text-primary': 'hsl(var(--text-primary) / <alpha-value>)',
+          'text-secondary': 'hsl(var(--text-secondary) / <alpha-value>)',
+          'text-muted': 'hsl(var(--text-muted) / <alpha-value>)',
+          success: 'hsl(var(--success) / <alpha-value>)',
+          warning: 'hsl(var(--warning) / <alpha-value>)',
+          danger: 'hsl(var(--danger) / <alpha-value>)',
+        },
+      },
+      boxShadow: {
+        theme: 'var(--shadow)',
+        glow: 'var(--glow)',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out',

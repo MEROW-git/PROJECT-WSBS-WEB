@@ -145,15 +145,15 @@ const platformFeatures = [
 
 export default function FeaturesPage() {
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-24 pb-16 bg-theme-bg">
       {/* Header */}
       <section className="container-main mb-16">
         <AnimatedSection className="text-center max-w-3xl mx-auto">
-          <span className="text-brand-600 font-semibold text-sm uppercase tracking-wide">Features</span>
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mt-3 mb-4">
+          <span className="eyebrow">Features</span>
+          <h1 className="text-4xl md:text-5xl font-bold text-theme-text-primary mt-3 mb-4">
             Complete Feature Set
           </h1>
-          <p className="text-lg text-slate-600">
+          <p className="text-lg text-theme-text-secondary">
             Everything your water utility company needs to manage customers, meters, 
             billing, and payments professionally.
           </p>
@@ -171,23 +171,23 @@ export default function FeaturesPage() {
                     <group.icon className="w-5 h-5" />
                     <span className="font-semibold text-sm">{group.title}</span>
                   </div>
-                  <h2 className="text-2xl font-bold text-slate-900 mb-4">{group.title}</h2>
+                  <h2 className="text-2xl font-bold text-theme-text-primary mb-4">{group.title}</h2>
                   <ul className="space-y-3">
                     {group.features.map((feature, fi) => (
                       <li key={fi} className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-brand-600 flex-shrink-0 mt-0.5" />
-                        <span className="text-slate-600">{feature}</span>
+                        <Check className="w-5 h-5 text-theme-primary flex-shrink-0 mt-0.5" />
+                        <span className="text-theme-text-secondary">{feature}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
                 <div className={gi % 2 === 1 ? 'lg:order-1' : ''}>
-                  <div className="bg-slate-100 rounded-2xl p-8 h-full min-h-[280px] flex items-center justify-center">
+                  <div className="surface-soft p-8 h-full min-h-[280px] flex items-center justify-center">
                     <div className="text-center">
                       <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${group.color} flex items-center justify-center mx-auto mb-4 shadow-lg`}>
                         <group.icon className="w-10 h-10 text-white" />
                       </div>
-                      <p className="text-slate-500 text-sm font-medium">{group.title}</p>
+                      <p className="text-theme-text-muted text-sm font-medium">{group.title}</p>
                     </div>
                   </div>
                 </div>
@@ -198,11 +198,11 @@ export default function FeaturesPage() {
       </section>
 
       {/* Platform Features */}
-      <section className="section-padding bg-slate-50 mt-16">
+      <section className="section-padding section-muted mt-16">
         <div className="container-main">
           <AnimatedSection className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Platform & Services</h2>
-            <p className="text-slate-600 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold text-theme-text-primary mb-4">Platform & Services</h2>
+            <p className="text-theme-text-secondary max-w-2xl mx-auto">
               Beyond software features, we provide a complete service platform for your business.
             </p>
           </AnimatedSection>
@@ -212,15 +212,15 @@ export default function FeaturesPage() {
               <AnimatedSection key={pf.title} delay={i * 0.1}>
                 <div className="card p-6">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-brand-100 flex items-center justify-center flex-shrink-0">
-                      <pf.icon className="w-6 h-6 text-brand-700" />
+                    <div className="w-12 h-12 rounded-xl bg-theme-primary/10 flex items-center justify-center flex-shrink-0">
+                      <pf.icon className="w-6 h-6 text-theme-primary" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-slate-900 mb-1">{pf.title}</h3>
-                      <p className="text-sm text-slate-600 mb-3">{pf.desc}</p>
+                      <h3 className="font-bold text-theme-text-primary mb-1">{pf.title}</h3>
+                      <p className="text-sm text-theme-text-secondary mb-3">{pf.desc}</p>
                       <div className="flex flex-wrap gap-2">
                         {pf.features.map((f) => (
-                          <span key={f} className="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-lg">
+                          <span key={f} className="chip">
                             {f}
                           </span>
                         ))}

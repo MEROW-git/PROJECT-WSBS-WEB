@@ -42,30 +42,30 @@ export default function VerifyEmailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-theme-bg-secondary flex items-center justify-center px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md"
       >
-        <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
+        <div className="surface-panel p-8 text-center">
           {status === 'verifying' && (
             <>
-              <div className="w-16 h-16 rounded-full bg-brand-100 flex items-center justify-center mx-auto mb-5">
-                <Loader2 className="w-8 h-8 text-brand-600 animate-spin" />
+              <div className="w-16 h-16 rounded-full bg-theme-primary/10 flex items-center justify-center mx-auto mb-5">
+                <Loader2 className="w-8 h-8 text-theme-primary animate-spin" />
               </div>
-              <h2 className="text-xl font-bold text-slate-900 mb-2">Verifying Email</h2>
-              <p className="text-slate-500">{message}</p>
+              <h2 className="text-xl font-bold text-theme-text-primary mb-2">Verifying Email</h2>
+              <p className="text-theme-text-muted">{message}</p>
             </>
           )}
 
           {status === 'success' && (
             <>
-              <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-5">
-                <Check className="w-8 h-8 text-green-600" />
+              <div className="w-16 h-16 rounded-full bg-theme-success/10 flex items-center justify-center mx-auto mb-5">
+                <Check className="w-8 h-8 text-theme-success" />
               </div>
-              <h2 className="text-xl font-bold text-slate-900 mb-2">Email Verified!</h2>
-              <p className="text-slate-500 mb-6">{message}</p>
+              <h2 className="text-xl font-bold text-theme-text-primary mb-2">Email Verified!</h2>
+              <p className="text-theme-text-muted mb-6">{message}</p>
               <div className="space-y-3">
                 <Link
                   to="/subscription"
@@ -89,8 +89,8 @@ export default function VerifyEmailPage() {
               <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-5">
                 <X className="w-8 h-8 text-red-600" />
               </div>
-              <h2 className="text-xl font-bold text-slate-900 mb-2">Verification Failed</h2>
-              <p className="text-slate-500 mb-6">{message}</p>
+              <h2 className="text-xl font-bold text-theme-text-primary mb-2">Verification Failed</h2>
+              <p className="text-theme-text-muted mb-6">{message}</p>
 
               {!resent ? (
                 <button
@@ -108,12 +108,12 @@ export default function VerifyEmailPage() {
                   )}
                 </button>
               ) : (
-                <div className="p-4 bg-green-50 rounded-xl text-green-700 text-sm">
+                <div className="p-4 bg-theme-success/10 rounded-xl text-theme-success text-sm">
                   Verification email resent! Please check your inbox.
                 </div>
               )}
 
-              <p className="mt-4 text-sm text-slate-500">
+              <p className="mt-4 text-sm text-theme-text-muted">
                 Need help?{' '}
                 <a href="mailto:support@waterbilling.com" className="text-brand-600 hover:underline">
                   Contact support
