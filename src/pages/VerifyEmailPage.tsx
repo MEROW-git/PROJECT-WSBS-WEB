@@ -3,13 +3,15 @@ import { useSearchParams, Link } from 'react-router-dom'
 import { Check, X, Loader2, Mail, ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { api } from '@/lib/api'
+import { useTranslation } from '@/lib/language/i18n'
 
 export default function VerifyEmailPage() {
   const [searchParams] = useSearchParams()
   const token = searchParams.get('token')
+  const { t } = useTranslation()
 
   const [status, setStatus] = useState<'verifying' | 'success' | 'error'>('verifying')
-  const [message, setMessage] = useState('Verifying your email address...')
+  const [message, setMessage] = useState(t('verifyEmail.messages.verifying'))
   const [resending, setResending] = useState(false)
   const [resent, setResent] = useState(false)
 
@@ -18,18 +20,18 @@ export default function VerifyEmailPage() {
       verifyToken(token)
     } else {
       setStatus('error')
-      setMessage('No verification token found. Please check your email link.')
+      setMessage(t('verifyEmail.messages.noToken'))
     }
   }, [token])
 
-  const verifyToken = async (t: string) => {
-    const res = await api.verifyEmail(t)
+  const verifyToken = async (emailToken: string) => {
+    const res = await api.verifyEmail(emailToken)
     if (res.success) {
       setStatus('success')
-      setMessage('Your email has been verified successfully!')
+      setMessage(t('verifyEmail.messages.success'))
     } else {
       setStatus('error')
-      setMessage(res.error?.message || 'Verification failed. The link may have expired.')
+      setMessage(res.error?.message || t('verifyEmail.messages.failed'))
     }
   }
 
@@ -54,7 +56,7 @@ export default function VerifyEmailPage() {
               <div className="w-16 h-16 rounded-full bg-theme-primary/10 flex items-center justify-center mx-auto mb-5">
                 <Loader2 className="w-8 h-8 text-theme-primary animate-spin" />
               </div>
-              <h2 className="text-xl font-bold text-theme-text-primary mb-2">Verifying Email</h2>
+              <h2 className="text-xl font-bold text-theme-text-primary mb-2">{t('verifyEmail.verifyingTitle')}</h2>
               <p className="text-theme-text-muted">{message}</p>
             </>
           )}
@@ -64,21 +66,21 @@ export default function VerifyEmailPage() {
               <div className="w-16 h-16 rounded-full bg-theme-success/10 flex items-center justify-center mx-auto mb-5">
                 <Check className="w-8 h-8 text-theme-success" />
               </div>
-              <h2 className="text-xl font-bold text-theme-text-primary mb-2">Email Verified!</h2>
+              <h2 className="text-xl font-bold text-theme-text-primary mb-2">{t('verifyEmail.successTitle')}</h2>
               <p className="text-theme-text-muted mb-6">{message}</p>
               <div className="space-y-3">
                 <Link
                   to="/subscription"
                   className="w-full btn-primary justify-center inline-flex"
                 >
-                  Choose Your Plan
+                  {t('verifyEmail.choosePlan')}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
                 <Link
                   to="/login"
                   className="w-full btn-ghost justify-center inline-flex"
                 >
-                  Sign In
+                  {t('common.signIn')}
                 </Link>
               </div>
             </>
@@ -89,7 +91,7 @@ export default function VerifyEmailPage() {
               <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-5">
                 <X className="w-8 h-8 text-red-600" />
               </div>
-              <h2 className="text-xl font-bold text-theme-text-primary mb-2">Verification Failed</h2>
+              <h2 className="text-xl font-bold text-theme-text-primary mb-2">{t('verifyEmail.errorTitle')}</h2>
               <p className="text-theme-text-muted mb-6">{message}</p>
 
               {!resent ? (
@@ -103,20 +105,20 @@ export default function VerifyEmailPage() {
                   ) : (
                     <>
                       <Mail className="w-4 h-4 mr-2" />
-                      Resend Verification Email
+                      {t('verifyEmail.resend')}
                     </>
                   )}
                 </button>
               ) : (
                 <div className="p-4 bg-theme-success/10 rounded-xl text-theme-success text-sm">
-                  Verification email resent! Please check your inbox.
+                  {t('verifyEmail.resent')}
                 </div>
               )}
 
               <p className="mt-4 text-sm text-theme-text-muted">
-                Need help?{' '}
+                {t('verifyEmail.needHelp')}{' '}
                 <a href="mailto:support@waterbilling.com" className="text-brand-600 hover:underline">
-                  Contact support
+                  {t('verifyEmail.contactSupport')}
                 </a>
               </p>
             </>

@@ -4,25 +4,26 @@ import { ChevronDown, Droplets, Menu, Moon, Sun, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAuthStore } from '@/store/authStore'
 import { useTheme } from '@/lib/theme'
+import { type LanguageCode, useLanguage, useTranslation } from '@/lib/language/i18n'
 
 const publicNavLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Features', href: '/features' },
-  { label: 'Pricing', href: '/pricing' },
+  { labelKey: 'nav.home', href: '/' },
+  { labelKey: 'nav.about', href: '/about' },
+  { labelKey: 'nav.features', href: '/features' },
+  { labelKey: 'nav.pricing', href: '/pricing' },
 ]
 
 const authenticatedNavLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Features', href: '/features' },
-  { label: 'Subscription', href: '/subscription' },
+  { labelKey: 'nav.home', href: '/' },
+  { labelKey: 'nav.about', href: '/about' },
+  { labelKey: 'nav.features', href: '/features' },
+  { labelKey: 'nav.subscription', href: '/subscription' },
 ]
 
 const legalLinks = [
-  { label: 'Terms of Service', href: '/terms' },
-  { label: 'Privacy Policy', href: '/privacy' },
-  { label: 'Subscription Policy', href: '/subscription-policy' },
+  { labelKey: 'nav.termsOfService', href: '/terms' },
+  { labelKey: 'nav.privacyPolicy', href: '/privacy' },
+  { labelKey: 'nav.subscriptionPolicy', href: '/subscription-policy' },
 ]
 
 export default function Navbar() {
@@ -33,6 +34,8 @@ export default function Navbar() {
   const navigate = useNavigate()
   const { isAuthenticated, user, logout } = useAuthStore()
   const { theme, toggleTheme } = useTheme()
+  const { options: languageOptions, language, setLanguage } = useLanguage()
+  const { t } = useTranslation()
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
@@ -68,12 +71,18 @@ export default function Navbar() {
   }`
 
   const handleSignOut = () => {
-    const confirmed = window.confirm('Are you sure you want to sign out?')
+    const confirmed = window.confirm(t('common.signOut', 'Sign Out'))
     if (!confirmed) return
 
     logout()
     navigate('/')
   }
+
+  const languageSelectClass = `h-10 rounded-lg border px-3 text-sm font-semibold outline-none transition-all ${
+    showBg
+      ? 'border-theme-border bg-theme-surface text-theme-text-secondary hover:bg-theme-surface-hover'
+      : 'border-white/20 bg-white/10 text-white hover:bg-white/15'
+  }`
 
   return (
     <>
@@ -104,7 +113,7 @@ export default function Navbar() {
                   to={link.href}
                   className={navItemClass(location.pathname === link.href)}
                 >
-                  {link.label}
+                  {t(link.labelKey)}
                 </Link>
               ))}
               <div
@@ -117,7 +126,7 @@ export default function Navbar() {
                   onClick={() => setLegalOpen((open) => !open)}
                   className={`${navItemClass(legalActive)} inline-flex items-center gap-1`}
                 >
-                  Legal
+                  {t('common.legal')}
                   <ChevronDown className={`w-4 h-4 transition-transform ${legalOpen ? 'rotate-180' : ''}`} />
                 </button>
                 <AnimatePresence>
@@ -139,7 +148,7 @@ export default function Navbar() {
                               : 'text-theme-text-secondary hover:bg-theme-surface-hover hover:text-theme-text-primary'
                           }`}
                         >
-                          {link.label}
+                          {t(link.labelKey)}
                         </Link>
                       ))}
                     </motion.div>
@@ -150,11 +159,23 @@ export default function Navbar() {
 
             {/* Desktop Actions */}
             <div className="hidden md:flex items-center gap-3">
+              <select
+                value={language}
+                onChange={(event) => setLanguage(event.target.value as LanguageCode)}
+                className={languageSelectClass}
+                aria-label={t('common.language', 'Language')}
+              >
+                {languageOptions.map((option) => (
+                  <option key={option.code} value={option.code}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
               <button
                 type="button"
                 onClick={toggleTheme}
                 className={iconButtonClass}
-                aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                aria-label={theme === 'dark' ? t('common.switchToLight') : t('common.switchToDark')}
               >
                 {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
               </button>
@@ -166,7 +187,7 @@ export default function Navbar() {
                       showBg ? 'text-theme-primary bg-theme-primary/10 hover:bg-theme-primary/15' : 'text-white bg-white/15 hover:bg-white/20'
                     }`}
                   >
-                    Dashboard
+                    {t('common.dashboard')}
                   </Link>
                   <span className={`text-sm font-medium ${showBg ? 'text-theme-text-secondary' : 'text-white/80'}`}>
                     {user?.full_name || user?.email}
@@ -177,7 +198,7 @@ export default function Navbar() {
                       showBg ? 'text-theme-text-secondary hover:text-theme-text-primary hover:bg-theme-surface-hover' : 'text-white/80 hover:bg-white/10'
                     }`}
                   >
-                    Sign Out
+                    {t('common.signOut')}
                   </button>
                 </div>
               ) : (
@@ -188,10 +209,10 @@ export default function Navbar() {
                       showBg ? 'text-theme-text-secondary hover:text-theme-text-primary hover:bg-theme-surface-hover' : 'text-white/80 hover:text-white hover:bg-white/10'
                     }`}
                   >
-                    Sign In
+                    {t('common.signIn')}
                   </Link>
                   <Link to="/signup" className="btn-primary text-sm py-2.5">
-                    Get Started
+                    {t('common.getStarted')}
                   </Link>
                 </>
               )}
@@ -230,11 +251,11 @@ export default function Navbar() {
                       : 'text-theme-text-secondary hover:bg-theme-surface-hover'
                   }`}
                 >
-                  {link.label}
+                  {t(link.labelKey)}
                 </Link>
               ))}
               <div className="px-4 pt-3 pb-1 text-xs font-semibold uppercase tracking-wide text-theme-text-muted">
-                Legal
+                {t('common.legal')}
               </div>
               {legalLinks.map((link) => (
                 <Link
@@ -246,37 +267,58 @@ export default function Navbar() {
                       : 'text-theme-text-secondary hover:bg-theme-surface-hover'
                   }`}
                 >
-                  {link.label}
+                  {t(link.labelKey)}
                 </Link>
               ))}
               <div className="pt-3 border-t border-theme-border space-y-2">
+                <div className="px-4 py-2">
+                  <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-theme-text-muted">
+                    {t('common.language', 'Language')}
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {languageOptions.map((option) => (
+                      <button
+                        key={option.code}
+                        type="button"
+                        onClick={() => setLanguage(option.code)}
+                        className={`rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
+                          language === option.code
+                            ? 'bg-theme-primary text-white'
+                            : 'bg-theme-bg-secondary text-theme-text-secondary hover:bg-theme-surface-hover'
+                        }`}
+                      >
+                        {option.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
                 <button
                   type="button"
                   onClick={toggleTheme}
                   className="w-full px-4 py-3 rounded-xl text-sm font-medium text-theme-text-secondary hover:bg-theme-surface-hover flex items-center justify-between"
                 >
-                  <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
+                  <span>{theme === 'dark' ? t('common.lightMode') : t('common.darkMode')}</span>
                   {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
                 </button>
                 {isAuthenticated ? (
                   <>
                     <Link to="/dashboard" className="block px-4 py-3 rounded-xl text-sm font-medium text-theme-primary bg-theme-primary/10">
-                      Dashboard
+                      {t('common.dashboard')}
                     </Link>
                     <button
                       onClick={handleSignOut}
                       className="w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-red-600 hover:bg-red-50"
                     >
-                      Sign Out
+                      {t('common.signOut')}
                     </button>
                   </>
                 ) : (
                   <>
                     <Link to="/login" className="block px-4 py-3 rounded-xl text-sm font-medium text-theme-text-secondary hover:bg-theme-surface-hover">
-                      Sign In
+                      {t('common.signIn')}
                     </Link>
                     <Link to="/signup" className="block px-4 py-3 rounded-xl text-sm font-semibold text-center text-white bg-brand-600 hover:bg-brand-700">
-                      Get Started
+                      {t('common.getStarted')}
                     </Link>
                   </>
                 )}

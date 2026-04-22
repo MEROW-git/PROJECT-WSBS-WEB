@@ -4,10 +4,12 @@ import { Check, HelpCircle } from 'lucide-react'
 import { motion } from 'framer-motion'
 import AnimatedSection from '@/components/AnimatedSection'
 import { getPlanPrice, pricingConfig, type BillingCycle } from '@/config/pricing'
+import { useTranslation } from '@/lib/language/i18n'
 
 export default function PricingPage() {
   const [billingCycle, setBillingCycle] = useState<BillingCycle>('monthly')
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const handleSelect = (planId: string) => {
     navigate('/signup', { state: { selectedPlan: planId, billingCycle } })
@@ -20,10 +22,10 @@ export default function PricingPage() {
         <AnimatedSection className="text-center max-w-2xl mx-auto">
           <span className="eyebrow">Pricing</span>
           <h1 className="text-4xl md:text-5xl font-bold text-theme-text-primary mt-3 mb-4">
-            Simple, Transparent Pricing
+            {t('pricing.title')}
           </h1>
           <p className="text-lg text-theme-text-secondary mb-8">
-            Choose the paid plan that fits your utility company.
+            {t('pricing.subtitle')}
           </p>
 
           {/* Billing toggle */}
@@ -36,7 +38,7 @@ export default function PricingPage() {
                   : 'text-theme-text-muted hover:text-theme-text-primary'
               }`}
             >
-              Monthly
+              {t('pricing.monthly')}
             </button>
             <button
               onClick={() => setBillingCycle('yearly')}
@@ -46,9 +48,9 @@ export default function PricingPage() {
                   : 'text-theme-text-muted hover:text-theme-text-primary'
               }`}
             >
-              Yearly
+              {t('pricing.yearly')}
               <span className="text-xs bg-theme-success/10 text-theme-success px-2 py-0.5 rounded-full">
-                {pricingConfig.yearlyDiscountLabel}
+                {t('pricing.yearlyDiscount')}
               </span>
             </button>
           </div>
@@ -73,17 +75,17 @@ export default function PricingPage() {
               {plan.popular && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                   <span className="badge-warning">
-                    Most Popular
+                    {t('pricing.mostPopular')}
                   </span>
                 </div>
               )}
 
               <div className="p-6 md:p-8">
                 <h3 className={`text-xl font-bold mb-1 ${plan.popular ? 'text-white' : 'text-theme-text-primary'}`}>
-                  {plan.name}
+                  {t(plan.nameKey)}
                 </h3>
                 <p className={`text-sm mb-5 ${plan.popular ? 'text-white/80' : 'text-theme-text-muted'}`}>
-                  {plan.description}
+                  {t(plan.descriptionKey)}
                 </p>
 
                 <div className="mb-6">
@@ -91,13 +93,13 @@ export default function PricingPage() {
                     ${getPlanPrice(plan, billingCycle)}
                   </span>
                   <span className={plan.popular ? 'text-white/70' : 'text-theme-text-muted'}>
-                    /{billingCycle === 'yearly' ? 'year' : 'month'}
+                    /{billingCycle === 'yearly' ? t('pricing.year') : t('pricing.month')}
                   </span>
                 </div>
 
                 <div className={`text-sm mb-6 ${plan.popular ? 'text-white/80' : 'text-theme-text-muted'}`}>
-                  <span className="font-semibold">{plan.users}</span> users &middot;{' '}
-                  <span className="font-semibold">{plan.customers.toLocaleString()}</span> customers
+                  <span className="font-semibold">{plan.users}</span> {t('pricing.users')} &middot;{' '}
+                  <span className="font-semibold">{plan.customers.toLocaleString()}</span> {t('pricing.customers')}
                 </div>
 
                 <button
@@ -108,20 +110,20 @@ export default function PricingPage() {
                       : 'bg-theme-primary text-white hover:bg-theme-primary-hover shadow-glow'
                   }`}
                 >
-                  Choose Plan
+                  {t('pricing.choosePlan')}
                 </button>
 
                 <div className="space-y-3">
-                  {plan.features.map((f) => (
-                    <div key={f} className="flex items-start gap-3">
+                  {plan.featureKeys.map((featureKey) => (
+                    <div key={featureKey} className="flex items-start gap-3">
                       <Check className={`w-4 h-4 mt-0.5 flex-shrink-0 ${plan.popular ? 'text-white/80' : 'text-theme-primary'}`} />
-                      <span className={`text-sm ${plan.popular ? 'text-white/90' : 'text-theme-text-secondary'}`}>{f}</span>
+                      <span className={`text-sm ${plan.popular ? 'text-white/90' : 'text-theme-text-secondary'}`}>{t(featureKey)}</span>
                     </div>
                   ))}
-                  {plan.notIncluded.map((f) => (
-                    <div key={f} className="flex items-start gap-3 opacity-40">
+                  {plan.notIncludedKeys.map((featureKey) => (
+                    <div key={featureKey} className="flex items-start gap-3 opacity-40">
                       <div className="w-4 h-4 mt-0.5 flex-shrink-0 rounded-full border-2 border-current" />
-                      <span className={`text-sm ${plan.popular ? 'text-white/60' : 'text-theme-text-muted'}`}>{f}</span>
+                      <span className={`text-sm ${plan.popular ? 'text-white/60' : 'text-theme-text-muted'}`}>{t(featureKey)}</span>
                     </div>
                   ))}
                 </div>
@@ -135,7 +137,7 @@ export default function PricingPage() {
       <section className="container-main">
         <AnimatedSection className="max-w-3xl mx-auto">
           <h2 className="text-2xl font-bold text-theme-text-primary text-center mb-10">
-            Frequently Asked Questions
+            {t('pricing.faqTitle')}
           </h2>
           <div className="space-y-4">
             {pricingConfig.pricingFaqs.map((faq, i) => (
@@ -143,8 +145,8 @@ export default function PricingPage() {
                 <div className="flex items-start gap-3">
                   <HelpCircle className="w-5 h-5 text-theme-primary flex-shrink-0 mt-0.5" />
                   <div>
-                    <h3 className="font-semibold text-theme-text-primary text-sm mb-1">{faq.q}</h3>
-                    <p className="text-sm text-theme-text-secondary">{faq.a}</p>
+                    <h3 className="font-semibold text-theme-text-primary text-sm mb-1">{t(faq.questionKey)}</h3>
+                    <p className="text-sm text-theme-text-secondary">{t(faq.answerKey)}</p>
                   </div>
                 </div>
               </div>

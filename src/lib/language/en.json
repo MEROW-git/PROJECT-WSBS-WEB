@@ -1,0 +1,755 @@
+{
+  "common": {
+    "darkMode": "Dark Mode",
+    "dashboard": "Dashboard",
+    "getStarted": "Get Started",
+    "language": "Language",
+    "legal": "Legal",
+    "lightMode": "Light Mode",
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "switchToDark": "Switch to dark mode",
+    "switchToLight": "Switch to light mode"
+  },
+  "footer": {
+    "builtFor": "Built for utility companies.",
+    "copyright": "All rights reserved.",
+    "description": "Professional water billing management system for utility companies. Streamline operations, track meters, generate bills, and grow your business.",
+    "location": "Phnom Penh, Cambodia",
+    "sections": {
+      "company": "Company",
+      "legal": "Legal",
+      "product": "Product"
+    }
+  },
+  "about": {
+    "companyType": "Utility management company",
+    "eyebrow": "About WaterBilling",
+    "subtitle": "WaterBilling is a professional web platform for utility companies that need a clearer way to manage customers, meters, bills, payments, and subscription access from one system.",
+    "title": "Helping water utility companies manage billing with confidence.",
+    "facts": {
+      "audience": "Designed for small and growing utility companies",
+      "location": "Based in Phnom Penh, Cambodia",
+      "platform": "Water utility management platform",
+      "subscription": "Paid subscription required before account setup is complete"
+    },
+    "purpose": {
+      "eyebrow": "Our Purpose",
+      "text": "We build WaterBilling so water companies can spend less time fighting spreadsheets and more time serving customers with accurate records.",
+      "title": "Simple tools for serious utility operations."
+    },
+    "values": {
+      "records": {
+        "text": "Our goal is to help companies keep clean account data, clear subscription status, and controlled access.",
+        "title": "Trustworthy records"
+      },
+      "support": {
+        "text": "We support companies through setup, account questions, subscription changes, and ongoing system maintenance.",
+        "title": "Support that stays close"
+      },
+      "utility": {
+        "text": "We focus on the daily needs of water utility teams: customers, meters, billing, payments, and reliable records.",
+        "title": "Built for utility work"
+      }
+    },
+    "contact": {
+      "email": "Email",
+      "eyebrow": "Contact",
+      "location": "Location",
+      "phone": "Phone",
+      "text": "For account setup, subscription questions, or password reset support, contact the WaterBilling team directly.",
+      "title": "Talk with our team"
+    }
+  },
+  "auth": {
+    "errors": {
+      "fillAll": "Please fill in all fields.",
+      "passwordMismatch": "Passwords do not match."
+    },
+    "fields": {
+      "accountEmail": "Account Email",
+      "companyCode": "Company Code",
+      "confirmNewPassword": "Confirm New Password",
+      "newPassword": "New Password",
+      "password": "Password",
+      "resetCode": "Reset Code",
+      "usernameOrEmail": "Username or Email"
+    },
+    "placeholders": {
+      "companyCode": "e.g. WATER01",
+      "newPassword": "Enter new password",
+      "password": "Enter your password",
+      "repeatNewPassword": "Repeat new password",
+      "resetCode": "Enter the code from email",
+      "username": "Enter your username"
+    },
+    "login": {
+      "errors": {
+        "googleFailed": "Google sign in failed. Please try again.",
+        "googleStartFailed": "Google sign in could not start.",
+        "invalid": "Invalid credentials. Please try again."
+      },
+      "forgotPassword": "Forgot password?",
+      "manualDivider": "or sign in manually",
+      "noAccount": "Don't have an account?",
+      "rememberMe": "Remember me",
+      "signUp": "Sign up",
+      "subtitle": "Sign in to your company account",
+      "title": "Welcome Back"
+    },
+    "reset": {
+      "backToSignIn": "Back to sign in",
+      "codeSubtitle": "Enter the code from your email",
+      "contactOnTelegram": "Contact on Telegram",
+      "contactTelegram": "Contact {name} on Telegram:",
+      "developmentCode": "Development code",
+      "emailSubtitle": "Enter your email to find your account",
+      "findEmail": "Find Email",
+      "foundSubtitle": "Email found. Send a reset code to continue",
+      "passwordSubtitle": "Choose a new password",
+      "resetPassword": "Reset Password",
+      "sendCode": "Send Code",
+      "sendCodeAgain": "Send Code Again",
+      "superAdminSubtitle": "Please contact the Super Admin to reset your password",
+      "superAdminTitle": "Password reset is handled by the Super Admin.",
+      "title": "Reset Password",
+      "verifyCode": "Verify Code",
+      "yourCompanyCode": "Your Company Code",
+      "errors": {
+        "codeRequired": "Please enter the reset code.",
+        "emailRequired": "Please enter your account email.",
+        "invalidCode": "Invalid reset code. Please try again.",
+        "notFound": "No account found for this email.",
+        "passwordLength": "New password must be at least 6 characters.",
+        "resetFailed": "Could not reset password. Please check the code and try again.",
+        "sendFailed": "Could not send reset code. Please check your email."
+      },
+      "messages": {
+        "codeSent": "Reset code sent. The code expires in {minutes} minutes.",
+        "codeVerified": "Code verified. Your company code is {companyCode}.",
+        "emailFound": "Email found. Send a reset code to continue.",
+        "passwordReset": "Password reset successfully. You can sign in with your new password."
+      }
+    },
+    "signup": {
+      "agreePrefix": "I agree to the",
+      "and": "and",
+      "backToOptions": "Back to signup options",
+      "completeSetup": "Complete Setup",
+      "connectedGoogle": "Connected Google Account",
+      "emailDivider": "or sign up with email",
+      "googleSubtitle": "We just need a few more details to set up your company.",
+      "googleTitle": "Almost There!",
+      "hasAccount": "Already have an account?",
+      "subtitle": "Create your company account, then choose a subscription plan.",
+      "title": "Create Your Account",
+      "fields": {
+        "adminName": "Admin Full Name",
+        "companyName": "Company Name",
+        "confirmPassword": "Confirm Password",
+        "phoneNumber": "Phone Number"
+      },
+      "placeholders": {
+        "companyName": "e.g. Blue Water Utility",
+        "fullName": "Your full name",
+        "password": "Min 6 characters",
+        "repeatPassword": "Repeat password"
+      },
+      "errors": {
+        "companyRequired": "Company name is required",
+        "emailRequired": "Email is required",
+        "googleConnect": "Please connect your Google account first.",
+        "googleRegistrationFailed": "Google registration failed.",
+        "invalidEmail": "Invalid email format",
+        "nameRequired": "Full name is required",
+        "passwordLength": "Password must be at least 6 characters",
+        "passwordRequired": "Password is required",
+        "phoneRequired": "Phone number is required",
+        "registrationFailed": "Registration failed. Please try again.",
+        "termsRequired": "You must agree to the terms"
+      }
+    }
+  },
+  "dashboard": {
+    "adminRole": "Admin",
+    "adminUser": "Admin User",
+    "doneText": "Your company account is ready. Keep this dashboard open for your account information and subscription status.",
+    "doneTitle": "You're done",
+    "fallbackCompany": "Your Company",
+    "loading": "Loading...",
+    "notAvailable": "Not available",
+    "setupComplete": "Account setup complete",
+    "subtitle": "Your subscription is active. You can now manage your water billing account from this web dashboard.",
+    "welcome": "Welcome",
+    "details": {
+      "company": "Company",
+      "companyCode": "Company Code",
+      "email": "Email",
+      "owner": "Account Owner",
+      "role": "Role",
+      "subscription": "Subscription"
+    }
+  },
+  "features": {
+    "title": "Complete Feature Set",
+    "subtitle": "Everything your water utility company needs to manage customers, meters, billing, and payments professionally.",
+    "groups": {
+      "billing": {
+        "title": "Billing System",
+        "items": {
+          "1": "Generate monthly bills automatically",
+          "2": "Calculate usage charges from readings",
+          "3": "Apply fixed charges and tariffs",
+          "4": "Add installation installments to bills",
+          "5": "Include meter renting fees",
+          "6": "Calculate penalties for late payment",
+          "7": "Track paid amount and balance",
+          "8": "Generate unique bill numbers"
+        }
+      },
+      "customers": {
+        "title": "Customer Management",
+        "items": {
+          "1": "Register and manage customer accounts",
+          "2": "Organize customers by areas and zones",
+          "3": "Track customer status (active, inactive, disconnected)",
+          "4": "Store contact info, ID cards, and addresses",
+          "5": "View customer history and connection dates",
+          "6": "Search and filter customer records"
+        }
+      },
+      "installation": {
+        "title": "Installation Tracking",
+        "items": {
+          "1": "Record new water connection installations",
+          "2": "Track installation fees and down payments",
+          "3": "Support installment payment plans",
+          "4": "Calculate penalties for late payments",
+          "5": "Monitor paid vs balance amounts",
+          "6": "Full payment history per installation"
+        }
+      },
+      "meters": {
+        "title": "Meter Management",
+        "items": {
+          "1": "Track all meters with unique numbers",
+          "2": "Link meters to customers",
+          "3": "Manage meter sizes and specifications",
+          "4": "Record installation dates and initial readings",
+          "5": "Track meter status and location notes",
+          "6": "Support for meter replacement history"
+        }
+      },
+      "payments": {
+        "title": "Payment Processing",
+        "items": {
+          "1": "Record multiple payment methods",
+          "2": "Support cash, bank transfer, mobile money, checks",
+          "3": "Track partial and full payments",
+          "4": "Generate payment receipts",
+          "5": "Link payments to bills and installations",
+          "6": "View payment history per customer",
+          "7": "Track who received each payment"
+        }
+      },
+      "reading": {
+        "title": "Meter Reading",
+        "items": {
+          "1": "Record readings through approved staff tools",
+          "2": "Enter previous and current readings",
+          "3": "Auto-calculate units consumed",
+          "4": "Capture meter photos as evidence",
+          "5": "Record GPS coordinates (mobile)",
+          "6": "Assign readings to staff members",
+          "7": "Approve or reject reading entries"
+        }
+      },
+      "reports": {
+        "title": "Reports & Analytics",
+        "items": {
+          "1": "Revenue summary reports",
+          "2": "Customer count and growth",
+          "3": "Meter reading statistics",
+          "4": "Bill collection reports",
+          "5": "Payment method breakdown",
+          "6": "Area-wise customer distribution",
+          "7": "Export reports for accounting"
+        }
+      },
+      "sizes": {
+        "title": "Meter Size Configuration",
+        "items": {
+          "1": "Define meter sizes (1/2\", 3/4\", 1\", etc.)",
+          "2": "Set installation prices per size",
+          "3": "Set monthly renting fees per size",
+          "4": "Activate or deactivate sizes as needed",
+          "5": "Auto-calculate installation costs"
+        }
+      }
+    },
+    "platform": {
+      "title": "Platform & Services",
+      "text": "Beyond software features, we provide a complete service platform for your business.",
+      "cards": {
+        "access": {
+          "title": "Controlled Access",
+          "text": "Users only receive the features their active subscription allows.",
+          "items": {
+            "1": "Plan-based access",
+            "2": "Role controls",
+            "3": "Secure sessions",
+            "4": "Account status checks"
+          }
+        },
+        "cloud": {
+          "title": "Cloud Hosted",
+          "text": "We host and maintain the backend. No server setup needed on your end.",
+          "items": {
+            "1": "Automatic backups",
+            "2": "99.9% uptime",
+            "3": "SSL encryption",
+            "4": "Regular updates"
+          }
+        },
+        "dashboard": {
+          "title": "Web Dashboard",
+          "text": "A clear account dashboard for company information, subscription status, and billing management.",
+          "items": {
+            "1": "Account overview",
+            "2": "Company details",
+            "3": "Subscription status",
+            "4": "Billing access"
+          }
+        },
+        "support": {
+          "title": "Support & Maintenance",
+          "text": "Our team handles technical support, updates, and system maintenance.",
+          "items": {
+            "1": "Email support",
+            "2": "System updates",
+            "3": "Bug fixes",
+            "4": "Feature requests"
+          }
+        }
+      }
+    }
+  },
+  "landing": {
+    "actions": {
+      "createAccount": "Create Account",
+      "dashboard": "Go to Dashboard",
+      "viewPlans": "View Plans",
+      "viewPricing": "View Pricing"
+    },
+    "audience": {
+      "eyebrow": "Who It's For",
+      "large": {
+        "text": "City-wide or multi-municipality water distribution networks.",
+        "title": "Large Enterprises"
+      },
+      "medium": {
+        "text": "Regional utilities with multiple zones and dedicated staff teams.",
+        "title": "Medium Companies"
+      },
+      "small": {
+        "text": "Local water providers serving communities of 500-5,000 connections.",
+        "title": "Small Utilities"
+      },
+      "text": "Whether you manage 100 or 10,000 connections, our system scales with your business needs.",
+      "title": "Built for Water Utility Companies"
+    },
+    "benefits": {
+      "available": {
+        "text": "Cloud-hosted system accessible from anywhere.",
+        "title": "Always Available"
+      },
+      "dashboard": {
+        "text": "View account, company, and subscription information in one place.",
+        "title": "Web Dashboard"
+      },
+      "records": {
+        "text": "Eliminate errors with digital meter tracking.",
+        "title": "Accurate Records"
+      },
+      "time": {
+        "text": "Automate billing and reduce manual work by 80%.",
+        "title": "Save Time"
+      }
+    },
+    "coreFeatures": {
+      "billing": {
+        "description": "Generate monthly bills automatically based on usage, tariffs, fixed charges, and penalties.",
+        "title": "Billing System"
+      },
+      "customers": {
+        "description": "Register customers, manage accounts, track connection history, and organize by areas or zones.",
+        "title": "Customer Management"
+      },
+      "meters": {
+        "description": "Track all meters, sizes, installations, and readings. Link meters to customers seamlessly.",
+        "title": "Meter Management"
+      },
+      "payments": {
+        "description": "Record cash, bank transfer, mobile money, and check payments with receipt tracking.",
+        "title": "Payment Processing"
+      },
+      "reading": {
+        "description": "Record readings with approved staff workflows. Support for photo capture and GPS coordinates.",
+        "title": "Meter Reading"
+      },
+      "reports": {
+        "description": "View revenue reports, customer summaries, meter statistics, and payment collections.",
+        "title": "Reports & Analytics"
+      }
+    },
+    "cta": {
+      "authenticatedText": "Continue to your dashboard or manage your subscription plan.",
+      "publicText": "Join hundreds of utility companies already using our platform. Sign up today and start managing your water billing professionally.",
+      "title": "Ready to Streamline Your Water Billing?"
+    },
+    "dashboard": {
+      "accountOverview": "Account overview",
+      "companyText": "After subscription, users land on a web dashboard that shows company details, account information, and subscription status.",
+      "companyTitle": "Company Dashboard",
+      "eyebrow": "Web Dashboard",
+      "requiredFirst": "Required first",
+      "setupComplete": "Setup complete after payment",
+      "subscriptionText": "Account setup is only complete after the user selects and activates a paid plan.",
+      "subscriptionTitle": "Subscription First",
+      "titleLine1": "Your Account Information.",
+      "titleLine2": "Ready After Subscription."
+    },
+    "demo": {
+      "accountReady": "Account ready",
+      "active": "Active",
+      "customers": "Customers",
+      "meters": "Meters",
+      "recentActivity": "Recent Activity",
+      "revenue": "Revenue",
+      "activity": {
+        "bill": "Bill generated #B2045",
+        "payment": "Payment received $85",
+        "reading": "New reading recorded"
+      },
+      "time": {
+        "fifteenMin": "15 min ago",
+        "oneHour": "1 hr ago",
+        "twoMin": "2 min ago"
+      }
+    },
+    "features": {
+      "text": "A complete suite of tools to manage your water utility operations from end to end.",
+      "title": "Everything You Need"
+    },
+    "hero": {
+      "eyebrow": "Water Utility Management Solution",
+      "subtitle": "A complete water billing platform for utility companies. Manage customers, track meters, generate bills, and collect payments - all in one professional system.",
+      "titleLine1": "Manage Your Water",
+      "titleLine2": "Billing System",
+      "features": {
+        "billing": "Auto Billing",
+        "customers": "Customer Management",
+        "meters": "Meter Tracking",
+        "payments": "Payments"
+      }
+    },
+    "why": {
+      "eyebrow": "Why Us",
+      "title": "Why Choose Water Billing?"
+    }
+  },
+  "legal": {
+    "lastUpdated": "Last updated: January 1, 2025",
+    "privacy": {
+      "title": "Privacy Policy",
+      "sections": {
+        "1": {
+          "title": "1. Information We Collect",
+          "text": "We collect information you provide directly to us when registering for an account, including your company name, administrator name, email address, phone number, and password. We also collect data you input into the system such as customer records, meter information, billing data, and payment records."
+        },
+        "2": {
+          "title": "2. How We Use Your Information",
+          "text": "We use your information to provide, maintain, and improve our services. This includes processing transactions, generating bills, sending email notifications, providing customer support, and ensuring the security of your account. We do not sell your personal information to third parties."
+        },
+        "3": {
+          "title": "3. Data Storage and Security",
+          "text": "Your data is stored on secure cloud servers with industry-standard encryption. We implement appropriate technical and organizational measures to protect your data against unauthorized access, alteration, disclosure, or destruction. All data transmission occurs over HTTPS encrypted connections."
+        },
+        "4": {
+          "title": "4. Email Communications",
+          "text": "We send transactional emails including account verification, password resets, billing notifications, and system alerts. You may also receive optional marketing communications which you can opt out of at any time."
+        },
+        "5": {
+          "title": "5. Third-Party Services",
+          "text": "We may use third-party service providers for hosting, payment processing, and email delivery. These providers have access to your information only to perform specific tasks on our behalf and are obligated not to disclose or use it for other purposes."
+        },
+        "6": {
+          "title": "6. Data Retention",
+          "text": "We retain your data for as long as your account is active or as needed to provide services. If you cancel your subscription, we will retain your data for 30 days to allow for account reactivation, after which it will be permanently deleted."
+        },
+        "7": {
+          "title": "7. Your Rights",
+          "text": "You have the right to access, correct, or delete your personal information. You may also request a copy of your data or ask us to restrict certain processing activities. Contact us to exercise these rights."
+        },
+        "8": {
+          "title": "8. Contact Us",
+          "text": "If you have questions about this Privacy Policy, please contact us at privacy@waterbilling.com."
+        }
+      }
+    },
+    "subscriptionPolicy": {
+      "title": "Subscription Policy",
+      "sections": {
+        "billingCycles": {
+          "title": "Billing Cycles",
+          "text": "We offer monthly and yearly billing cycles. Monthly subscriptions are billed on the same day each month. Yearly subscriptions are billed once per year at a discounted rate (save 20% compared to monthly). You can switch billing cycles at any time through your account settings."
+        },
+        "cancellation": {
+          "title": "Cancellation",
+          "text": "You may cancel your subscription at any time from your account settings. Upon cancellation, you will continue to have access until the end of your current billing period. After that, your account will be downgraded to a limited access state with 30 days to export your data before deletion."
+        },
+        "paymentMethods": {
+          "title": "Payment Methods",
+          "text": "We accept major credit cards (Visa, Mastercard, American Express) and bank transfers for enterprise plans. All payments are processed securely through our payment providers. Payments are non-refundable except as specified in our refund policy."
+        },
+        "planLimits": {
+          "title": "Plan Limits",
+          "text": "Each plan has limits on the number of users and customers. If you approach your plan limits, we will notify you via email. You can upgrade to a higher plan at any time. There are no overage charges - you simply need to upgrade when you exceed your plan limits."
+        },
+        "refund": {
+          "title": "Refund Policy",
+          "text": "We offer a 30-day money-back guarantee for new subscribers. If you are not satisfied with our service within the first 30 days of your paid subscription, contact us for a full refund. Refunds are processed within 5-10 business days. This guarantee does not apply to renewals or plan changes."
+        },
+        "required": {
+          "title": "Subscription Required",
+          "text": "New accounts must choose and activate a paid subscription before setup is complete. Access to account features begins after the selected plan is active."
+        },
+        "suspension": {
+          "title": "Account Suspension",
+          "text": "We may suspend accounts for non-payment after a 7-day grace period. During suspension, you will have read-only access to your data. Accounts suspended for more than 60 days may be permanently deleted. Contact support if you need payment arrangement assistance."
+        }
+      }
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "sections": {
+        "1": {
+          "title": "1. Acceptance of Terms",
+          "text": "By accessing or using the Water Billing System service, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our service. These terms apply to all visitors, users, and others who access or use the service."
+        },
+        "2": {
+          "title": "2. Description of Service",
+          "text": "Water Billing System provides a cloud-based platform for water utility companies to manage customers, meters, readings, billing, and payments. The service includes access to the hosted web service and connected account features."
+        },
+        "3": {
+          "title": "3. Account Registration",
+          "text": "To use our service, you must create an account by providing accurate and complete information. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You must notify us immediately of any unauthorized use of your account."
+        },
+        "4": {
+          "title": "4. Subscription and Payment",
+          "text": "Access to the service requires an active subscription. You agree to pay all fees associated with your chosen plan. Subscriptions automatically renew unless cancelled before the renewal date. We reserve the right to change pricing with 30 days notice."
+        },
+        "5": {
+          "title": "5. Acceptable Use",
+          "text": "You agree not to use the service for any unlawful purpose or in any way that could damage, disable, overburden, or impair our servers or networks. You may not attempt to gain unauthorized access to any part of the service or accounts of other users."
+        },
+        "6": {
+          "title": "6. Data Ownership",
+          "text": "You retain ownership of all data you input into the system. We claim no ownership over your customer records, billing data, or business information. You grant us a limited license to host and process your data solely for the purpose of providing the service."
+        },
+        "7": {
+          "title": "7. Termination",
+          "text": "We may terminate or suspend your account immediately for any violation of these terms. Upon termination, your right to use the service will immediately cease. You may cancel your subscription at any time through your account settings."
+        },
+        "8": {
+          "title": "8. Limitation of Liability",
+          "text": "In no event shall Water Billing System be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or relating to your use of the service. Our total liability shall not exceed the amount you paid for the service in the 12 months preceding the claim."
+        },
+        "9": {
+          "title": "9. Changes to Terms",
+          "text": "We reserve the right to modify these terms at any time. We will provide notice of significant changes by posting the updated terms on our website or notifying you via email. Continued use of the service after changes constitutes acceptance."
+        },
+        "10": {
+          "title": "10. Contact",
+          "text": "For questions about these terms, please contact us at support@waterbilling.com."
+        }
+      }
+    }
+  },
+  "verifyEmail": {
+    "choosePlan": "Choose Your Plan",
+    "contactSupport": "Contact support",
+    "errorTitle": "Verification Failed",
+    "needHelp": "Need help?",
+    "resend": "Resend Verification Email",
+    "resent": "Verification email resent! Please check your inbox.",
+    "successTitle": "Email Verified!",
+    "verifyingTitle": "Verifying Email",
+    "messages": {
+      "failed": "Verification failed. The link may have expired.",
+      "noToken": "No verification token found. Please check your email link.",
+      "success": "Your email has been verified successfully!",
+      "verifying": "Verifying your email address..."
+    }
+  },
+  "nav": {
+    "about": "About",
+    "features": "Features",
+    "home": "Home",
+    "pricing": "Pricing",
+    "privacyPolicy": "Privacy Policy",
+    "subscription": "Subscription",
+    "subscriptionPolicy": "Subscription Policy",
+    "termsOfService": "Terms of Service"
+  },
+  "pricing": {
+    "choosePlan": "Choose Plan",
+    "customers": "customers",
+    "customersLabel": "Customers",
+    "faqTitle": "Frequently Asked Questions",
+    "month": "month",
+    "monthly": "Monthly",
+    "mostPopular": "Most Popular",
+    "subtitle": "Choose the paid plan that fits your utility company.",
+    "title": "Simple, Transparent Pricing",
+    "users": "users",
+    "usersLabel": "Users",
+    "year": "year",
+    "yearly": "Yearly",
+    "yearlyDiscount": "Save 20%",
+    "plans": {
+      "starter": {
+        "name": "Starter",
+        "description": "Perfect for small water utilities that need reliable customer, meter, and billing records.",
+        "features": {
+          "staff": "Up to 3 staff users",
+          "customers": "Up to 500 customers",
+          "billing": "Basic monthly billing"
+        }
+      },
+      "professional": {
+        "name": "Professional",
+        "description": "Best for growing utilities with more staff, more customers, and stronger reporting needs.",
+        "features": {
+          "staff": "Up to 10 staff users",
+          "customers": "Up to 5,000 customers",
+          "everythingStarter": "Everything in Starter"
+        }
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "For large-scale utility operations that need high limits, advanced analytics, and dedicated help.",
+        "features": {
+          "staff": "Up to 50 staff users",
+          "customers": "Up to 50,000 customers",
+          "everythingProfessional": "Everything in Professional"
+        }
+      }
+    },
+    "sharedFeatures": {
+      "advancedAnalytics": "Advanced analytics",
+      "advancedBillingRules": "Advanced billing rules",
+      "advancedReports": "Advanced reports",
+      "apiAccess": "API access",
+      "customBranding": "Custom branding",
+      "customIntegrations": "Custom integrations",
+      "customReportBuilder": "Custom report builder",
+      "customerManagement": "Customer management",
+      "dedicatedAccountManager": "Dedicated account manager",
+      "emailSupport": "Email support",
+      "installationTracking": "Installation tracking",
+      "meterManagement": "Meter management",
+      "paymentRecording": "Payment recording",
+      "penaltyDiscountRules": "Penalty and discount rules",
+      "phoneSupport": "24/7 phone support",
+      "prioritySupport": "Priority support",
+      "staffReadingWorkflows": "Staff reading workflows",
+      "standardReports": "Standard reports",
+      "unlimitedMeterReaders": "Unlimited meter readers",
+      "whiteLabelOptions": "White-label options"
+    },
+    "faqs": {
+      "cancel": {
+        "question": "Can I cancel my subscription?",
+        "answer": "You can cancel anytime from your account settings. Your access continues until the end of your current billing period."
+      },
+      "changePlans": {
+        "question": "Can I change plans later?",
+        "answer": "Yes, you can upgrade or downgrade your plan at any time. Changes take effect at the start of your next billing cycle."
+      },
+      "exceedLimit": {
+        "question": "What happens if I exceed my customer limit?",
+        "answer": "We'll notify you when you're approaching your limit. You can upgrade to a higher plan or contact us for a custom solution."
+      },
+      "refunds": {
+        "question": "Do you offer refunds?",
+        "answer": "Yes, we offer a 30-day money-back guarantee if you are not satisfied with our service."
+      },
+      "subscribeFirst": {
+        "question": "Do I need to subscribe first?",
+        "answer": "Yes. A paid subscription is required before your account setup is complete."
+      }
+    }
+  },
+  "subscription": {
+    "afterActivation": "Your account opens in the web dashboard after activation.",
+    "billing": "Billing",
+    "eyebrow": "Subscription Required",
+    "includesText": "These core modules are available after your subscription is active. Plan limits decide how many users and customers your company can manage.",
+    "includesTitle": "What Your Subscription Includes",
+    "questionsTitle": "Subscription Questions",
+    "readyToActivate": "Ready to activate",
+    "selectedPlan": "Selected Plan",
+    "selectPlan": "Select Plan",
+    "subscribe": "Subscribe",
+    "subtitle": "Select a paid plan to complete setup. After activation, you will go to your web dashboard with your company and account information.",
+    "title": "Choose the Plan for Your Company",
+    "errors": {
+      "activateFailed": "Failed to activate subscription."
+    },
+    "modules": {
+      "billing": {
+        "title": "Billing",
+        "text": "Generate bills with usage, fixed fees, penalties, and balances."
+      },
+      "customers": {
+        "title": "Customers",
+        "text": "Register accounts, organize areas, and track service status."
+      },
+      "meters": {
+        "title": "Meters",
+        "text": "Manage meter numbers, sizes, installations, and readings."
+      },
+      "payments": {
+        "title": "Payments",
+        "text": "Record payment methods, partial payments, and receipts."
+      },
+      "reports": {
+        "title": "Reports",
+        "text": "Review collections, revenue, customer counts, and activity."
+      },
+      "security": {
+        "title": "Security",
+        "text": "Keep company data isolated with role-based account access."
+      }
+    },
+    "faqs": {
+      "afterSubscribing": {
+        "question": "What do I see after subscribing?",
+        "answer": "You will land on the web dashboard with your company, account, company code, role, and subscription information."
+      },
+      "changePlans": {
+        "question": "Can I change plans later?",
+        "answer": "Yes. You can upgrade or downgrade as your company grows. Plan changes can be handled from account settings or support."
+      },
+      "chooseNow": {
+        "question": "Why do I need to choose a plan now?",
+        "answer": "The company setup is only complete after a paid subscription is active. After subscribing, you go straight to the web dashboard."
+      },
+      "customerLimit": {
+        "question": "What happens if I reach my customer limit?",
+        "answer": "You can move to a higher plan before adding more customers, so your records stay organized and supported."
+      }
+    }
+  }
+}

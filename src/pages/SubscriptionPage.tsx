@@ -12,6 +12,7 @@ import { motion } from 'framer-motion'
 import { api } from '@/lib/api'
 import { useAuthStore } from '@/store/authStore'
 import { getPlanPrice, pricingConfig, type BillingCycle } from '@/config/pricing'
+import { useTranslation } from '@/lib/language/i18n'
 
 export default function SubscriptionPage() {
   const navigate = useNavigate()
@@ -20,6 +21,7 @@ export default function SubscriptionPage() {
   const [selectedPlan, setSelectedPlan] = useState<string>(pricingConfig.defaultPlanId)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const { t } = useTranslation()
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -51,7 +53,7 @@ export default function SubscriptionPage() {
       }
       navigate('/dashboard')
     } else {
-      setError(res.error?.message || 'Failed to activate subscription.')
+      setError(res.error?.message || t('subscription.errors.activateFailed'))
     }
   }
 
@@ -60,12 +62,12 @@ export default function SubscriptionPage() {
       <div className="container-main max-w-6xl">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <div className="text-center max-w-3xl mx-auto mb-10">
-            <span className="eyebrow">Subscription Required</span>
+            <span className="eyebrow">{t('subscription.eyebrow')}</span>
             <h1 className="text-4xl md:text-5xl font-bold text-theme-text-primary mt-3 mb-4">
-              Choose the Plan for Your Company
+              {t('subscription.title')}
             </h1>
             <p className="text-lg text-theme-text-secondary">
-              Select a paid plan to complete setup. After activation, you will go to your web dashboard with your company and account information.
+              {t('subscription.subtitle')}
             </p>
           </div>
 
@@ -79,7 +81,7 @@ export default function SubscriptionPage() {
                     : 'text-theme-text-muted hover:text-theme-text-primary'
                 }`}
               >
-                Monthly
+                {t('pricing.monthly')}
               </button>
               <button
                 onClick={() => setBillingCycle('yearly')}
@@ -89,11 +91,11 @@ export default function SubscriptionPage() {
                     : 'text-theme-text-muted hover:text-theme-text-primary'
                 }`}
               >
-                Yearly
+                {t('pricing.yearly')}
                 <span className={`text-xs px-2 py-0.5 rounded-full ${
                   billingCycle === 'yearly' ? 'bg-white/20 text-white' : 'bg-theme-success/10 text-theme-success'
                 }`}>
-                  {pricingConfig.yearlyDiscountLabel}
+                  {t('pricing.yearlyDiscount')}
                 </span>
               </button>
             </div>
@@ -121,7 +123,7 @@ export default function SubscriptionPage() {
                   {plan.popular && (
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                       <span className="badge-warning">
-                        Most Popular
+                        {t('pricing.mostPopular')}
                       </span>
                     </div>
                   )}
@@ -130,10 +132,10 @@ export default function SubscriptionPage() {
                     <div className="flex items-start justify-between gap-4 mb-4">
                       <div>
                         <h3 className={`text-xl font-bold mb-1 ${plan.popular ? 'text-white' : 'text-theme-text-primary'}`}>
-                          {plan.name}
+                          {t(plan.nameKey)}
                         </h3>
                         <p className={`text-sm ${plan.popular ? 'text-white/80' : 'text-theme-text-muted'}`}>
-                          {plan.description}
+                          {t(plan.descriptionKey)}
                         </p>
                       </div>
                       <div className={`h-6 w-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
@@ -150,13 +152,13 @@ export default function SubscriptionPage() {
                         ${price}
                       </span>
                       <span className={plan.popular ? 'text-white/70' : 'text-theme-text-muted'}>
-                        /{billingCycle === 'yearly' ? 'year' : 'month'}
+                        /{billingCycle === 'yearly' ? t('pricing.year') : t('pricing.month')}
                       </span>
                     </div>
 
                     <div className={`text-sm mb-6 ${plan.popular ? 'text-white/80' : 'text-theme-text-muted'}`}>
-                      <span className="font-semibold">{plan.users}</span> users &middot;{' '}
-                      <span className="font-semibold">{plan.customers.toLocaleString()}</span> customers
+                      <span className="font-semibold">{plan.users}</span> {t('pricing.users')} &middot;{' '}
+                      <span className="font-semibold">{plan.customers.toLocaleString()}</span> {t('pricing.customers')}
                     </div>
 
                     <div className={`w-full py-3 rounded-xl font-semibold text-sm text-center transition-all mb-8 ${
@@ -164,20 +166,20 @@ export default function SubscriptionPage() {
                         ? plan.popular ? 'bg-white text-theme-primary' : 'bg-theme-primary text-white'
                         : plan.popular ? 'bg-white/15 text-white' : 'bg-theme-bg-secondary text-theme-text-secondary'
                     }`}>
-                      {isSelected ? 'Selected Plan' : 'Select Plan'}
+                      {isSelected ? t('subscription.selectedPlan') : t('subscription.selectPlan')}
                     </div>
 
                     <div className="space-y-3">
-                      {plan.features.map((feature) => (
-                        <div key={feature} className="flex items-start gap-3">
+                      {plan.featureKeys.map((featureKey) => (
+                        <div key={featureKey} className="flex items-start gap-3">
                           <Check className={`w-4 h-4 mt-0.5 flex-shrink-0 ${plan.popular ? 'text-white/80' : 'text-theme-primary'}`} />
-                          <span className={`text-sm ${plan.popular ? 'text-white/90' : 'text-theme-text-secondary'}`}>{feature}</span>
+                          <span className={`text-sm ${plan.popular ? 'text-white/90' : 'text-theme-text-secondary'}`}>{t(featureKey)}</span>
                         </div>
                       ))}
-                      {plan.notIncluded.map((feature) => (
-                        <div key={feature} className="flex items-start gap-3 opacity-45">
+                      {plan.notIncludedKeys.map((featureKey) => (
+                        <div key={featureKey} className="flex items-start gap-3 opacity-45">
                           <X className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                          <span className={`text-sm ${plan.popular ? 'text-white/60' : 'text-theme-text-muted'}`}>{feature}</span>
+                          <span className={`text-sm ${plan.popular ? 'text-white/60' : 'text-theme-text-muted'}`}>{t(featureKey)}</span>
                         </div>
                       ))}
                     </div>
@@ -189,20 +191,20 @@ export default function SubscriptionPage() {
 
           <div className="grid lg:grid-cols-[1fr_360px] gap-8 items-start mb-12">
             <section className="surface-card p-6 md:p-8">
-              <h2 className="text-2xl font-bold text-theme-text-primary mb-3">What Your Subscription Includes</h2>
+              <h2 className="text-2xl font-bold text-theme-text-primary mb-3">{t('subscription.includesTitle')}</h2>
               <p className="text-theme-text-secondary mb-6">
-                These core modules are available after your subscription is active. Plan limits decide how many users and customers your company can manage.
+                {t('subscription.includesText')}
               </p>
               <div className="grid sm:grid-cols-2 gap-4">
                 {pricingConfig.subscriptionModules.map((module) => (
-                  <div key={module.title} className="surface-soft p-4">
+                  <div key={module.titleKey} className="surface-soft p-4">
                     <div className="flex items-center gap-3 mb-2">
                       <div className="h-10 w-10 rounded-lg bg-theme-primary/10 text-theme-primary flex items-center justify-center">
                         <module.icon className="h-5 w-5" />
                       </div>
-                      <h3 className="font-semibold text-theme-text-primary">{module.title}</h3>
+                      <h3 className="font-semibold text-theme-text-primary">{t(module.titleKey)}</h3>
                     </div>
-                    <p className="text-sm text-theme-text-secondary">{module.text}</p>
+                    <p className="text-sm text-theme-text-secondary">{t(module.textKey)}</p>
                   </div>
                 ))}
               </div>
@@ -211,26 +213,28 @@ export default function SubscriptionPage() {
             <aside className="surface-card p-6 lg:sticky lg:top-24">
               <div className="badge-success w-fit mb-4">
                 <CheckCircle2 className="h-4 w-4" />
-                Ready to activate
+                {t('subscription.readyToActivate')}
               </div>
-              <h2 className="text-xl font-bold text-theme-text-primary mb-2">{selected.name}</h2>
-              <p className="text-sm text-theme-text-muted mb-5">{selected.description}</p>
+              <h2 className="text-xl font-bold text-theme-text-primary mb-2">{t(selected.nameKey)}</h2>
+              <p className="text-sm text-theme-text-muted mb-5">{t(selected.descriptionKey)}</p>
               <div className="mb-5">
                 <span className="text-4xl font-bold text-theme-text-primary">${selectedPrice}</span>
-                <span className="text-theme-text-muted">/{billingCycle === 'yearly' ? 'year' : 'month'}</span>
+                <span className="text-theme-text-muted">/{billingCycle === 'yearly' ? t('pricing.year') : t('pricing.month')}</span>
               </div>
               <div className="space-y-2 text-sm text-theme-text-secondary mb-6">
                 <div className="flex justify-between gap-4">
-                  <span>Users</span>
+                  <span>{t('pricing.usersLabel')}</span>
                   <span className="font-semibold text-theme-text-primary">{selected.users}</span>
                 </div>
                 <div className="flex justify-between gap-4">
-                  <span>Customers</span>
+                  <span>{t('pricing.customersLabel')}</span>
                   <span className="font-semibold text-theme-text-primary">{selected.customers.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between gap-4">
-                  <span>Billing</span>
-                  <span className="font-semibold text-theme-text-primary capitalize">{billingCycle}</span>
+                  <span>{t('subscription.billing')}</span>
+                  <span className="font-semibold text-theme-text-primary capitalize">
+                    {billingCycle === 'yearly' ? t('pricing.yearly') : t('pricing.monthly')}
+                  </span>
                 </div>
               </div>
 
@@ -250,27 +254,27 @@ export default function SubscriptionPage() {
                   <Loader2 className="w-5 h-5 animate-spin" />
                 ) : (
                   <>
-                    Subscribe
+                    {t('subscription.subscribe')}
                     <Check className="w-4 h-4 ml-2" />
                   </>
                 )}
               </button>
               <p className="text-xs text-theme-text-muted mt-3 text-center">
-                Your account opens in the web dashboard after activation.
+                {t('subscription.afterActivation')}
               </p>
             </aside>
           </div>
 
           <section className="max-w-3xl mx-auto">
-            <h2 className="text-2xl font-bold text-theme-text-primary text-center mb-8">Subscription Questions</h2>
+            <h2 className="text-2xl font-bold text-theme-text-primary text-center mb-8">{t('subscription.questionsTitle')}</h2>
             <div className="space-y-4">
               {pricingConfig.subscriptionFaqs.map((faq) => (
-                <div key={faq.q} className="surface-card p-5">
+                <div key={faq.questionKey} className="surface-card p-5">
                   <div className="flex items-start gap-3">
                     <HelpCircle className="w-5 h-5 text-theme-primary flex-shrink-0 mt-0.5" />
                     <div>
-                      <h3 className="font-semibold text-theme-text-primary text-sm mb-1">{faq.q}</h3>
-                      <p className="text-sm text-theme-text-secondary">{faq.a}</p>
+                      <h3 className="font-semibold text-theme-text-primary text-sm mb-1">{t(faq.questionKey)}</h3>
+                      <p className="text-sm text-theme-text-secondary">{t(faq.answerKey)}</p>
                     </div>
                   </div>
                 </div>

@@ -1,6 +1,7 @@
 import { Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { Plan } from '@/lib/api'
+import { useTranslation } from '@/lib/language/i18n'
 
 interface PricingCardProps {
   plan: Plan
@@ -10,8 +11,9 @@ interface PricingCardProps {
 }
 
 export default function PricingCard({ plan, billingCycle, isPopular, onSelect }: PricingCardProps) {
+  const { t } = useTranslation()
   const price = billingCycle === 'yearly' ? plan.price_yearly : plan.price_monthly
-  const period = billingCycle === 'yearly' ? '/year' : '/month'
+  const period = billingCycle === 'yearly' ? t('pricing.year') : t('pricing.month')
 
   return (
     <div
@@ -25,7 +27,7 @@ export default function PricingCard({ plan, billingCycle, isPopular, onSelect }:
       {isPopular && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2">
           <span className="badge-warning">
-            Most Popular
+            {t('pricing.mostPopular')}
           </span>
         </div>
       )}
@@ -44,7 +46,7 @@ export default function PricingCard({ plan, billingCycle, isPopular, onSelect }:
           ${price}
         </span>
         <span className={cn('text-sm', isPopular ? 'text-white/70' : 'text-theme-text-muted')}>
-          {period}
+          /{period}
         </span>
       </div>
 
@@ -68,7 +70,7 @@ export default function PricingCard({ plan, billingCycle, isPopular, onSelect }:
             : 'bg-theme-primary text-white hover:bg-theme-primary-hover shadow-glow'
         )}
       >
-        Choose {plan.plan_name}
+        {t('pricing.choosePlan')} {plan.plan_name}
       </button>
     </div>
   )

@@ -6,10 +6,12 @@ import { api } from '@/lib/api'
 import { useAuthStore } from '@/store/authStore'
 import { renderGoogleButton, type GoogleAccount } from '@/lib/googleAuth'
 import { authConfig } from '@/config/auth'
+import { useTranslation } from '@/lib/language/i18n'
 
 export default function LoginPage() {
   const navigate = useNavigate()
   const { login } = useAuthStore()
+  const { t } = useTranslation()
 
   const [mode, setMode] = useState<'login' | 'reset'>('login')
   const [resetStep, setResetStep] = useState<'email' | 'found' | 'code' | 'password'>('email')
@@ -45,7 +47,7 @@ export default function LoginPage() {
     setError('')
     setSuccess('')
     if (!companyCode || !username || !password) {
-      setError('Please fill in all fields.')
+      setError(t('auth.errors.fillAll'))
       return
     }
 
@@ -61,7 +63,7 @@ export default function LoginPage() {
       login(res.data.token, res.data.user)
       navigate('/subscription')
     } else {
-      setError(res.error?.message || 'Invalid credentials. Please try again.')
+      setError(res.error?.message || t('auth.login.errors.invalid'))
     }
   }
 
@@ -70,7 +72,7 @@ export default function LoginPage() {
     setSuccess('')
 
     if (!resetEmail) {
-      setError('Please enter your account email.')
+      setError(t('auth.reset.errors.emailRequired'))
       return
     }
 
@@ -83,9 +85,9 @@ export default function LoginPage() {
     if (res.success && res.data?.found) {
       setCompanyCode(res.data.company_code)
       setResetStep('found')
-      setSuccess('Email found. Send a reset code to continue.')
+      setSuccess(t('auth.reset.messages.emailFound'))
     } else {
-      setError(res.error?.message || 'No account found for this email.')
+      setError(res.error?.message || t('auth.reset.errors.notFound'))
     }
   }
 
@@ -94,7 +96,7 @@ export default function LoginPage() {
     setSuccess('')
 
     if (!resetEmail) {
-      setError('Please enter your account email.')
+      setError(t('auth.reset.errors.emailRequired'))
       return
     }
 
@@ -109,9 +111,9 @@ export default function LoginPage() {
       setDevelopmentCode(code)
       setResetCode(code)
       setResetStep('code')
-      setSuccess(`Reset code sent. The code expires in ${res.data?.expires_in_minutes || 15} minutes.`)
+      setSuccess(t('auth.reset.messages.codeSent').replace('{minutes}', String(res.data?.expires_in_minutes || 15)))
     } else {
-      setError(res.error?.message || 'Could not send reset code. Please check your email.')
+      setError(res.error?.message || t('auth.reset.errors.sendFailed'))
     }
   }
 
@@ -120,7 +122,7 @@ export default function LoginPage() {
     setSuccess('')
 
     if (!resetEmail || !resetCode) {
-      setError('Please enter the reset code.')
+      setError(t('auth.reset.errors.codeRequired'))
       return
     }
 
@@ -135,9 +137,9 @@ export default function LoginPage() {
       setResetCompanyCode(res.data.company_code)
       setCompanyCode(res.data.company_code)
       setResetStep('password')
-      setSuccess(`Code verified. Your company code is ${res.data.company_code}.`)
+      setSuccess(t('auth.reset.messages.codeVerified').replace('{companyCode}', res.data.company_code))
     } else {
-      setError(res.error?.message || 'Invalid reset code. Please try again.')
+      setError(res.error?.message || t('auth.reset.errors.invalidCode'))
     }
   }
 
@@ -146,17 +148,17 @@ export default function LoginPage() {
     setSuccess('')
 
     if (!resetEmail || !resetCode || !newPassword || !confirmPassword) {
-      setError('Please fill in all fields.')
+      setError(t('auth.errors.fillAll'))
       return
     }
 
     if (newPassword.length < 6) {
-      setError('New password must be at least 6 characters.')
+      setError(t('auth.reset.errors.passwordLength'))
       return
     }
 
     if (newPassword !== confirmPassword) {
-      setError('Passwords do not match.')
+      setError(t('auth.errors.passwordMismatch'))
       return
     }
 
@@ -181,9 +183,9 @@ export default function LoginPage() {
       setConfirmPassword('')
       setResetStep('email')
       setMode('login')
-      setSuccess('Password reset successfully. You can sign in with your new password.')
+      setSuccess(t('auth.reset.messages.passwordReset'))
     } else {
-      setError(res.error?.message || 'Could not reset password. Please check the code and try again.')
+      setError(res.error?.message || t('auth.reset.errors.resetFailed'))
     }
   }
 
@@ -201,10 +203,10 @@ export default function LoginPage() {
         login(res.data.token, res.data.user)
         navigate('/subscription')
       } else {
-        setError(res.error?.message || 'Google sign in failed. Please try again.')
+        setError(res.error?.message || t('auth.login.errors.googleFailed'))
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Google sign in could not start.')
+      setError(err instanceof Error ? err.message : t('auth.login.errors.googleStartFailed'))
     } finally {
       setLoading(false)
     }
@@ -231,20 +233,20 @@ export default function LoginPage() {
         <div className="surface-panel p-6 md:p-8">
           <div className="text-center mb-6">
             <h1 className="text-2xl font-bold text-theme-text-primary">
-              {mode === 'login' ? 'Welcome Back' : 'Reset Password'}
+              {mode === 'login' ? t('auth.login.title') : t('auth.reset.title')}
             </h1>
             <p className="text-sm text-theme-text-muted mt-1">
               {mode === 'login'
-                ? 'Sign in to your company account'
+                ? t('auth.login.subtitle')
                 : !authConfig.enableOtpPasswordReset
-                  ? 'Please contact the Super Admin to reset your password'
+                  ? t('auth.reset.superAdminSubtitle')
                 : resetStep === 'email'
-                  ? 'Enter your email to find your account'
+                  ? t('auth.reset.emailSubtitle')
                   : resetStep === 'found'
-                    ? 'Email found. Send a reset code to continue'
+                    ? t('auth.reset.foundSubtitle')
                   : resetStep === 'code'
-                    ? 'Enter the code from your email'
-                    : 'Choose a new password'}
+                    ? t('auth.reset.codeSubtitle')
+                    : t('auth.reset.passwordSubtitle')}
             </p>
           </div>
 
@@ -261,7 +263,7 @@ export default function LoginPage() {
                 <div>{success}</div>
                 {developmentCode && (
                   <div className="mt-1 font-semibold">
-                    Development code: {developmentCode}
+                    {t('auth.reset.developmentCode')}: {developmentCode}
                   </div>
                 )}
               </div>
@@ -277,7 +279,7 @@ export default function LoginPage() {
                   <div className="w-full border-t border-theme-border" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="bg-theme-surface px-4 text-theme-text-muted">or sign in manually</span>
+                  <span className="bg-theme-surface px-4 text-theme-text-muted">{t('auth.login.manualDivider')}</span>
                 </div>
               </div>
             </>
@@ -287,30 +289,30 @@ export default function LoginPage() {
             {mode === 'login' ? (
               <>
                 <div>
-                  <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Company Code</label>
+                  <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">{t('auth.fields.companyCode')}</label>
                   <input
                     type="text"
                     value={companyCode}
                     onChange={(e) => setCompanyCode(e.target.value)}
-                    placeholder="e.g. WATER01"
+                    placeholder={t('auth.placeholders.companyCode')}
                     className="input-field text-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Username or Email</label>
+                  <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">{t('auth.fields.usernameOrEmail')}</label>
                   <input
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    placeholder="Enter your username"
+                    placeholder={t('auth.placeholders.username')}
                     className="input-field text-sm"
                   />
                 </div>
               </>
             ) : authConfig.enableOtpPasswordReset ? (
               <div>
-                <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Account Email</label>
+                <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">{t('auth.fields.accountEmail')}</label>
                 <input
                   type="email"
                   value={resetEmail}
@@ -327,9 +329,9 @@ export default function LoginPage() {
                     <Send className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="text-sm font-semibold text-theme-text-primary">Password reset is handled by the Super Admin.</div>
+                    <div className="text-sm font-semibold text-theme-text-primary">{t('auth.reset.superAdminTitle')}</div>
                     <p className="mt-1 text-sm text-theme-text-secondary">
-                      Contact {authConfig.passwordResetContact.name} on Telegram:
+                      {t('auth.reset.contactTelegram').replace('{name}', authConfig.passwordResetContact.name)}
                     </p>
                     <a
                       href={authConfig.passwordResetContact.telegramUrl}
@@ -346,20 +348,20 @@ export default function LoginPage() {
 
             {authConfig.enableOtpPasswordReset && mode === 'reset' && resetStep === 'password' && resetCompanyCode && (
                 <div className="rounded-xl border border-theme-primary/20 bg-theme-primary/10 p-4">
-                <div className="text-xs font-medium text-theme-primary">Your Company Code</div>
+                <div className="text-xs font-medium text-theme-primary">{t('auth.reset.yourCompanyCode')}</div>
                 <div className="mt-1 text-lg font-bold tracking-wider text-theme-text-primary">{resetCompanyCode}</div>
               </div>
             )}
 
             {mode === 'login' ? (
               <div>
-              <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Password</label>
+              <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">{t('auth.fields.password')}</label>
               <div className="relative">
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter your password"
+                  placeholder={t('auth.placeholders.password')}
                   className="input-field text-sm pr-10"
                 />
                 <button
@@ -375,12 +377,12 @@ export default function LoginPage() {
               <>
                 {resetStep === 'code' && (
                   <div>
-                    <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Reset Code</label>
+                    <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">{t('auth.fields.resetCode')}</label>
                     <input
                       type="text"
                       value={resetCode}
                       onChange={(e) => setResetCode(e.target.value)}
-                      placeholder="Enter the code from email"
+                      placeholder={t('auth.placeholders.resetCode')}
                       className="input-field text-sm"
                     />
                   </div>
@@ -388,22 +390,22 @@ export default function LoginPage() {
                 {resetStep === 'password' && (
                   <>
                     <div>
-                      <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">New Password</label>
+                      <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">{t('auth.fields.newPassword')}</label>
                       <input
                         type="password"
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
-                        placeholder="Enter new password"
+                        placeholder={t('auth.placeholders.newPassword')}
                         className="input-field text-sm"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Confirm New Password</label>
+                      <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">{t('auth.fields.confirmNewPassword')}</label>
                       <input
                         type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        placeholder="Repeat new password"
+                        placeholder={t('auth.placeholders.repeatNewPassword')}
                         className="input-field text-sm"
                       />
                     </div>
@@ -419,7 +421,7 @@ export default function LoginPage() {
                 rel="noreferrer"
                 className="w-full btn-primary justify-center"
               >
-                Contact on Telegram
+                {t('auth.reset.contactOnTelegram')}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </a>
             )}
@@ -428,7 +430,7 @@ export default function LoginPage() {
               <div className="flex items-center justify-between">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input type="checkbox" className="w-4 h-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500" />
-                  <span className="text-sm text-theme-text-secondary">Remember me</span>
+                  <span className="text-sm text-theme-text-secondary">{t('auth.login.rememberMe')}</span>
                 </label>
                 <button
                   type="button"
@@ -444,7 +446,7 @@ export default function LoginPage() {
                   }}
                   className="text-sm text-brand-600 hover:underline font-medium"
                 >
-                  Forgot password?
+                  {t('auth.login.forgotPassword')}
                 </button>
               </div>
             )}
@@ -470,14 +472,14 @@ export default function LoginPage() {
                 ) : (
                   <>
                     {mode === 'login'
-                      ? 'Sign In'
+                      ? t('common.signIn')
                       : resetStep === 'email'
-                        ? 'Find Email'
+                        ? t('auth.reset.findEmail')
                       : resetStep === 'found'
-                        ? 'Send Code'
+                        ? t('auth.reset.sendCode')
                       : resetStep === 'code'
-                        ? 'Verify Code'
-                        : 'Reset Password'}
+                        ? t('auth.reset.verifyCode')
+                        : t('auth.reset.resetPassword')}
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </>
                 )}
@@ -491,7 +493,7 @@ export default function LoginPage() {
                 disabled={loading}
                 className="w-full text-center text-sm font-medium text-brand-600 hover:text-brand-700 disabled:opacity-50 py-2"
               >
-                Send Code Again
+                {t('auth.reset.sendCodeAgain')}
               </button>
             )}
 
@@ -509,15 +511,15 @@ export default function LoginPage() {
                 }}
                 className="w-full text-center text-sm text-theme-text-muted hover:text-theme-text-primary py-2"
               >
-                Back to sign in
+                {t('auth.reset.backToSignIn')}
               </button>
             )}
           </div>
 
           <p className="text-center text-sm text-theme-text-muted mt-6">
-            Don't have an account?{' '}
+            {t('auth.login.noAccount')}{' '}
             <Link to="/signup" className="text-brand-600 font-semibold hover:underline">
-              Sign up
+              {t('auth.login.signUp')}
             </Link>
           </p>
         </div>

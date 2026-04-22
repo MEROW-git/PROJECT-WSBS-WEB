@@ -6,6 +6,7 @@ import { api, type SignupData } from '@/lib/api'
 import { useAuthStore } from '@/store/authStore'
 import { isValidEmail } from '@/lib/utils'
 import { renderGoogleButton, type GoogleAccount } from '@/lib/googleAuth'
+import { useTranslation } from '@/lib/language/i18n'
 
 const phoneCountries = [
   { code: 'BN', name: 'Brunei', flag: '🇧🇳', dialCode: '+673' },
@@ -23,6 +24,7 @@ const phoneCountries = [
 export default function SignupPage() {
   const navigate = useNavigate()
   const { login, setCompany } = useAuthStore()
+  const { t } = useTranslation()
 
   const [mode, setMode] = useState<'form' | 'google-info'>('form')
   const [showPassword, setShowPassword] = useState(false)
@@ -66,15 +68,15 @@ export default function SignupPage() {
 
   const validate = (): boolean => {
     const e: Record<string, string> = {}
-    if (!companyName.trim()) e.companyName = 'Company name is required'
-    if (!adminName.trim()) e.adminName = 'Full name is required'
-    if (!email.trim()) e.email = 'Email is required'
-    else if (!isValidEmail(email)) e.email = 'Invalid email format'
-    if (!phone.trim()) e.phone = 'Phone number is required'
-    if (!password) e.password = 'Password is required'
-    else if (password.length < 6) e.password = 'Password must be at least 6 characters'
-    if (password !== confirmPassword) e.confirmPassword = 'Passwords do not match'
-    if (!agreeTerms) e.terms = 'You must agree to the terms'
+    if (!companyName.trim()) e.companyName = t('auth.signup.errors.companyRequired')
+    if (!adminName.trim()) e.adminName = t('auth.signup.errors.nameRequired')
+    if (!email.trim()) e.email = t('auth.signup.errors.emailRequired')
+    else if (!isValidEmail(email)) e.email = t('auth.signup.errors.invalidEmail')
+    if (!phone.trim()) e.phone = t('auth.signup.errors.phoneRequired')
+    if (!password) e.password = t('auth.signup.errors.passwordRequired')
+    else if (password.length < 6) e.password = t('auth.signup.errors.passwordLength')
+    if (password !== confirmPassword) e.confirmPassword = t('auth.errors.passwordMismatch')
+    if (!agreeTerms) e.terms = t('auth.signup.errors.termsRequired')
     setErrors(e)
     return Object.keys(e).length === 0
   }
@@ -99,7 +101,7 @@ export default function SignupPage() {
       setCompany(res.data.company)
       navigate('/subscription')
     } else {
-      setErrors({ general: res.error?.message || 'Registration failed. Please try again.' })
+      setErrors({ general: res.error?.message || t('auth.signup.errors.registrationFailed') })
     }
   }
 
@@ -119,16 +121,16 @@ export default function SignupPage() {
     setErrors({})
 
     if (!googleData) {
-      setErrors({ general: 'Please connect your Google account first.' })
+      setErrors({ general: t('auth.signup.errors.googleConnect') })
       return
     }
 
     if (!companyName.trim()) {
-      setErrors({ companyName: 'Company name is required' })
+      setErrors({ companyName: t('auth.signup.errors.companyRequired') })
       return
     }
     if (!phone.trim()) {
-      setErrors({ phone: 'Phone number is required' })
+      setErrors({ phone: t('auth.signup.errors.phoneRequired') })
       return
     }
 
@@ -147,7 +149,7 @@ export default function SignupPage() {
       setCompany(res.data.company)
       navigate('/subscription')
     } else {
-      setErrors({ general: res.error?.message || 'Google registration failed.' })
+      setErrors({ general: res.error?.message || t('auth.signup.errors.googleRegistrationFailed') })
     }
   }
 
@@ -181,9 +183,9 @@ export default function SignupPage() {
           {mode === 'form' ? (
             <>
               <div className="text-center mb-6">
-                <h1 className="text-2xl font-bold text-theme-text-primary">Create Your Account</h1>
+                <h1 className="text-2xl font-bold text-theme-text-primary">{t('auth.signup.title')}</h1>
                 <p className="text-sm text-theme-text-muted mt-1">
-                  Create your company account, then choose a subscription plan.
+                  {t('auth.signup.subtitle')}
                 </p>
               </div>
 
@@ -195,31 +197,31 @@ export default function SignupPage() {
                   <div className="w-full border-t border-theme-border" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="bg-theme-surface px-4 text-theme-text-muted">or sign up with email</span>
+                  <span className="bg-theme-surface px-4 text-theme-text-muted">{t('auth.signup.emailDivider')}</span>
                 </div>
               </div>
 
               {/* Manual Form */}
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Company Name</label>
+                  <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">{t('auth.signup.fields.companyName')}</label>
                   <input
                     type="text"
                     value={companyName}
                     onChange={(e) => setCompanyName(e.target.value)}
-                    placeholder="e.g. Blue Water Utility"
+                    placeholder={t('auth.signup.placeholders.companyName')}
                     className={inputClass('companyName')}
                   />
                   {errors.companyName && <p className="text-red-500 text-xs mt-1">{errors.companyName}</p>}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Admin Full Name</label>
+                  <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">{t('auth.signup.fields.adminName')}</label>
                   <input
                     type="text"
                     value={adminName}
                     onChange={(e) => setAdminName(e.target.value)}
-                    placeholder="Your full name"
+                    placeholder={t('auth.signup.placeholders.fullName')}
                     className={inputClass('adminName')}
                   />
                   {errors.adminName && <p className="text-red-500 text-xs mt-1">{errors.adminName}</p>}
@@ -227,7 +229,7 @@ export default function SignupPage() {
 
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
-                    <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Email</label>
+                    <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">{t('about.contact.email')}</label>
                     <input
                       type="email"
                       value={email}
@@ -238,7 +240,7 @@ export default function SignupPage() {
                     {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Phone</label>
+                    <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">{t('about.contact.phone')}</label>
                     <div className="grid grid-cols-[130px_1fr] gap-2">
                       <select
                         value={phoneCountry.code}
@@ -267,13 +269,13 @@ export default function SignupPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Password</label>
+                  <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">{t('auth.fields.password')}</label>
                   <div className="relative">
                     <input
                       type={showPassword ? 'text' : 'password'}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Min 6 characters"
+                      placeholder={t('auth.signup.placeholders.password')}
                       className={inputClass('password') + ' pr-10'}
                     />
                     <button
@@ -288,12 +290,12 @@ export default function SignupPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Confirm Password</label>
+                  <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">{t('auth.signup.fields.confirmPassword')}</label>
                   <input
                     type="password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    placeholder="Repeat password"
+                    placeholder={t('auth.signup.placeholders.repeatPassword')}
                     className={inputClass('confirmPassword')}
                   />
                   {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>}
@@ -307,10 +309,10 @@ export default function SignupPage() {
                     className="mt-0.5 w-4 h-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500"
                   />
                   <span className="text-xs text-theme-text-secondary">
-                    I agree to the{' '}
-                    <Link to="/terms" className="text-brand-600 hover:underline">Terms of Service</Link>
-                    {' '}and{' '}
-                    <Link to="/privacy" className="text-brand-600 hover:underline">Privacy Policy</Link>
+                    {t('auth.signup.agreePrefix')}{' '}
+                    <Link to="/terms" className="text-brand-600 hover:underline">{t('nav.termsOfService')}</Link>
+                    {' '}{t('auth.signup.and')}{' '}
+                    <Link to="/privacy" className="text-brand-600 hover:underline">{t('nav.privacyPolicy')}</Link>
                   </span>
                 </label>
                 {errors.terms && <p className="text-red-500 text-xs">{errors.terms}</p>}
@@ -330,7 +332,7 @@ export default function SignupPage() {
                     <Loader2 className="w-5 h-5 animate-spin" />
                   ) : (
                     <>
-                      Create Account
+                      {t('landing.actions.createAccount')}
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </>
                   )}
@@ -343,27 +345,27 @@ export default function SignupPage() {
                 <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-3">
                   <Check className="w-6 h-6 text-green-600" />
                 </div>
-                <h2 className="text-xl font-bold text-theme-text-primary">Almost There!</h2>
+                <h2 className="text-xl font-bold text-theme-text-primary">{t('auth.signup.googleTitle')}</h2>
                 <p className="text-sm text-theme-text-muted mt-1">
-                  We just need a few more details to set up your company.
+                  {t('auth.signup.googleSubtitle')}
                 </p>
               </div>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Company Name</label>
+                  <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">{t('auth.signup.fields.companyName')}</label>
                   <input
                     type="text"
                     value={companyName}
                     onChange={(e) => setCompanyName(e.target.value)}
-                    placeholder="e.g. Blue Water Utility"
+                    placeholder={t('auth.signup.placeholders.companyName')}
                     className={inputClass('companyName')}
                   />
                   {errors.companyName && <p className="text-red-500 text-xs mt-1">{errors.companyName}</p>}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">Phone Number</label>
+                  <label className="block text-sm font-medium text-theme-text-secondary mb-1.5">{t('auth.signup.fields.phoneNumber')}</label>
                   <div className="grid grid-cols-[136px_1fr] gap-2">
                     <select
                       value={phoneCountry.code}
@@ -391,7 +393,7 @@ export default function SignupPage() {
                 </div>
 
                 <div className="p-3 bg-theme-bg-secondary rounded-xl border border-theme-border">
-                  <div className="text-xs text-theme-text-muted">Connected Google Account</div>
+                  <div className="text-xs text-theme-text-muted">{t('auth.signup.connectedGoogle')}</div>
                   <div className="text-sm font-medium text-theme-text-primary">{googleData?.fullName}</div>
                   <div className="text-xs text-theme-text-muted">{googleData?.email}</div>
                 </div>
@@ -407,23 +409,23 @@ export default function SignupPage() {
                   disabled={loading}
                   className="w-full btn-primary justify-center disabled:opacity-50"
                 >
-                  {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Complete Setup'}
+                  {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : t('auth.signup.completeSetup')}
                 </button>
 
                 <button
                   onClick={() => setMode('form')}
                   className="w-full text-center text-sm text-theme-text-muted hover:text-theme-text-primary py-2"
                 >
-                  Back to signup options
+                  {t('auth.signup.backToOptions')}
                 </button>
               </div>
             </>
           )}
 
           <p className="text-center text-sm text-theme-text-muted mt-6">
-            Already have an account?{' '}
+            {t('auth.signup.hasAccount')}{' '}
             <Link to="/login" className="text-brand-600 font-semibold hover:underline">
-              Sign in
+              {t('common.signIn')}
             </Link>
           </p>
         </div>
