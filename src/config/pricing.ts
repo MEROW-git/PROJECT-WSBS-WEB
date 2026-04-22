@@ -7,6 +7,7 @@ import {
   Users,
   type LucideIcon,
 } from 'lucide-react'
+import { subscriptionConfig } from './subscription'
 
 export type BillingCycle = 'monthly' | 'yearly'
 
@@ -42,8 +43,8 @@ export const pricingConfig = {
       id: 'starter',
       nameKey: 'pricing.plans.starter.name',
       descriptionKey: 'pricing.plans.starter.description',
-      monthlyPrice: 29,
-      yearlyPrice: 290,
+      monthlyPrice: subscriptionConfig.planPrices.starter.monthly,
+      yearlyPrice: subscriptionConfig.planPrices.starter.yearly,
       users: 3,
       customers: 500,
       featureKeys: [
@@ -65,8 +66,8 @@ export const pricingConfig = {
       id: 'professional',
       nameKey: 'pricing.plans.professional.name',
       descriptionKey: 'pricing.plans.professional.description',
-      monthlyPrice: 79,
-      yearlyPrice: 790,
+      monthlyPrice: subscriptionConfig.planPrices.professional.monthly,
+      yearlyPrice: subscriptionConfig.planPrices.professional.yearly,
       users: 10,
       customers: 5000,
       featureKeys: [
@@ -90,8 +91,8 @@ export const pricingConfig = {
       id: 'enterprise',
       nameKey: 'pricing.plans.enterprise.name',
       descriptionKey: 'pricing.plans.enterprise.description',
-      monthlyPrice: 199,
-      yearlyPrice: 1990,
+      monthlyPrice: subscriptionConfig.planPrices.enterprise.monthly,
+      yearlyPrice: subscriptionConfig.planPrices.enterprise.yearly,
       users: 50,
       customers: 50000,
       featureKeys: [

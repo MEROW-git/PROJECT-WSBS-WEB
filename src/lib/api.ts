@@ -51,6 +51,17 @@ export interface ApiResponse<T = unknown> {
   }
 }
 
+export interface PaginationMeta {
+  page: number
+  per_page: number
+  total: number
+  total_pages: number
+}
+
+export interface ListApiResponse<T = unknown> extends ApiResponse<T[]> {
+  pagination?: PaginationMeta
+}
+
 export interface LoginCredentials {
   company_code: string
   username: string
@@ -141,6 +152,13 @@ export interface Subscription {
   plan?: Plan
 }
 
+export interface Customer {
+  customer_id: string
+  company_id: string
+  customer_code: string
+  full_name: string
+}
+
 class APIClient {
   private token: string | null = null
 
@@ -210,6 +228,48 @@ class APIClient {
     }
   }
 
+  private async requestList<T>(endpoint: string): Promise<ListApiResponse<T>> {
+    const url = `${API_BASE_URL}${endpoint}`
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    }
+
+    const token = this.getToken()
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`
+    }
+
+    try {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers,
+      })
+
+      const data = await response.json().catch(() => ({}))
+
+      if (!response.ok) {
+        return {
+          success: false,
+          error: {
+            code: `HTTP_${response.status}`,
+            message: data.error?.message || data.message || `Request failed (${response.status})`,
+          },
+        }
+      }
+
+      return { success: true, data: data.data ?? [], pagination: data.pagination }
+    } catch (err) {
+      return {
+        success: false,
+        error: {
+          code: 'NETWORK_ERROR',
+          message: err instanceof Error ? err.message : 'Network error. Please check your connection.',
+        },
+      }
+    }
+  }
+
   // Auth endpoints
   async login(credentials: LoginCredentials) {
     return this.request<{ token: string; token_type: string; user: User }>('POST', '/auth/login', credentials)
@@ -267,6 +327,14 @@ class APIClient {
 
   async getMySubscription() {
     return this.request<Subscription>('GET', '/subscriptions/my')
+  }
+
+  async getCustomers(page = 1, perPage = 1) {
+    return this.requestList<Customer>(`/customers?page=${page}&per_page=${perPage}`)
+  }
+
+  async getUsers(page = 1, perPage = 1) {
+    return this.requestList<User>(`/users?page=${page}&per_page=${perPage}`)
   }
 
   // Company

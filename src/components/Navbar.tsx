@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { ChevronDown, Droplets, Menu, Moon, Sun, X } from 'lucide-react'
+import { Check, ChevronDown, Droplets, Languages, Menu, Moon, Sun, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAuthStore } from '@/store/authStore'
 import { useTheme } from '@/lib/theme'
@@ -30,6 +30,8 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [legalOpen, setLegalOpen] = useState(false)
+  const [languageOpen, setLanguageOpen] = useState(false)
+  const languageMenuRef = useRef<HTMLDivElement>(null)
   const location = useLocation()
   const navigate = useNavigate()
   const { isAuthenticated, user, logout } = useAuthStore()
@@ -46,7 +48,21 @@ export default function Navbar() {
   useEffect(() => {
     setMobileOpen(false)
     setLegalOpen(false)
+    setLanguageOpen(false)
   }, [location.pathname])
+
+  useEffect(() => {
+    if (!languageOpen) return
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!languageMenuRef.current?.contains(event.target as Node)) {
+        setLanguageOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [languageOpen])
 
   const isHome = location.pathname === '/'
   const showBg = scrolled || !isHome
@@ -78,10 +94,10 @@ export default function Navbar() {
     navigate('/')
   }
 
-  const languageSelectClass = `h-10 rounded-lg border px-3 text-sm font-semibold outline-none transition-all ${
+  const compactControlClass = `h-9 rounded-lg border px-3 text-sm font-semibold outline-none transition-all ${
     showBg
-      ? 'border-theme-border bg-theme-surface text-theme-text-secondary hover:bg-theme-surface-hover'
-      : 'border-white/20 bg-white/10 text-white hover:bg-white/15'
+      ? 'border-theme-border/80 bg-transparent text-theme-text-secondary hover:border-theme-primary/30 hover:bg-theme-surface-hover hover:text-theme-text-primary'
+      : 'border-white/15 bg-white/5 text-white/85 hover:bg-white/10 hover:text-white'
   }`
 
   return (
@@ -159,18 +175,52 @@ export default function Navbar() {
 
             {/* Desktop Actions */}
             <div className="hidden md:flex items-center gap-3">
-              <select
-                value={language}
-                onChange={(event) => setLanguage(event.target.value as LanguageCode)}
-                className={languageSelectClass}
-                aria-label={t('common.language', 'Language')}
+              <div
+                ref={languageMenuRef}
+                className="relative"
               >
-                {languageOptions.map((option) => (
-                  <option key={option.code} value={option.code}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
+                <button
+                  type="button"
+                  onClick={() => setLanguageOpen((open) => !open)}
+                  className={`${compactControlClass} inline-flex items-center gap-2`}
+                  aria-label={t('common.language', 'Language')}
+                  aria-expanded={languageOpen}
+                >
+                  <Languages className="h-4 w-4" />
+                  <span>{languageOptions.find((option) => option.code === language)?.label}</span>
+                  <ChevronDown className={`h-3.5 w-3.5 transition-transform ${languageOpen ? 'rotate-180' : ''}`} />
+                </button>
+                <AnimatePresence>
+                  {languageOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 8 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute right-0 top-full mt-2 w-40 rounded-xl border border-theme-border bg-theme-elevated p-2 shadow-theme"
+                    >
+                      {languageOptions.map((option) => (
+                        <button
+                          key={option.code}
+                          type="button"
+                          onClick={() => {
+                            setLanguage(option.code as LanguageCode)
+                            setLanguageOpen(false)
+                          }}
+                          className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
+                            language === option.code
+                              ? 'bg-theme-primary/10 text-theme-primary'
+                              : 'text-theme-text-secondary hover:bg-theme-surface-hover hover:text-theme-text-primary'
+                          }`}
+                        >
+                          <span>{option.label}</span>
+                          {language === option.code && <Check className="h-4 w-4" />}
+                        </button>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
               <button
                 type="button"
                 onClick={toggleTheme}
@@ -183,8 +233,10 @@ export default function Navbar() {
                 <div className="flex items-center gap-3">
                   <Link
                     to="/dashboard"
-                    className={`text-sm font-medium px-4 py-2 rounded-lg transition-all ${
-                      showBg ? 'text-theme-primary bg-theme-primary/10 hover:bg-theme-primary/15' : 'text-white bg-white/15 hover:bg-white/20'
+                    className={`text-sm font-semibold px-3.5 py-2 rounded-lg transition-all ${
+                      showBg
+                        ? 'text-theme-primary bg-transparent hover:bg-theme-primary/10'
+                        : 'text-white/90 bg-white/5 hover:bg-white/10 hover:text-white'
                     }`}
                   >
                     {t('common.dashboard')}

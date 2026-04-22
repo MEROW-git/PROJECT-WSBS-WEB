@@ -184,10 +184,14 @@
     "details": {
       "company": "Company",
       "companyCode": "Company Code",
+      "customers": "Customers",
       "email": "Email",
       "owner": "Account Owner",
       "role": "Role",
-      "subscription": "Subscription"
+      "staff": "Staff",
+      "subscription": "Subscription",
+      "subscriptionEnd": "Subscription End",
+      "subscriptionStart": "Subscription Start"
     },
     "noSubscription": {
       "action": "Choose a Plan",
@@ -198,6 +202,17 @@
       "subtitle": "Your company account exists, but there is no subscription record yet.",
       "text": "We could not find an active subscription for this company. Please choose a plan before using the billing system.",
       "title": "You do not have a subscription yet"
+    },
+    "downloads": {
+      "desktopAction": "Download Desktop App",
+      "desktopText": "Install the desktop app for office billing work.",
+      "desktopTitle": "Desktop App",
+      "mobileAction": "Download Mobile App",
+      "mobileText": "Install the mobile app for field staff and meter reading.",
+      "mobileTitle": "Mobile App",
+      "notConfigured": "Download link not configured",
+      "text": "Your subscription is active. Download the apps your team needs to start working.",
+      "title": "Download Your Apps"
     }
   },
   "features": {
@@ -702,6 +717,7 @@
     }
   },
   "subscription": {
+    "activeSubscription": "Your active subscription",
     "afterActivation": "Your account opens in the web dashboard after activation.",
     "billing": "Billing",
     "contactTelegram": "Contact me via Telegram",

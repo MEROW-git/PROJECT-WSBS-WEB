@@ -18,9 +18,10 @@ import { useTranslation } from '@/lib/language/i18n'
 
 export default function SubscriptionPage() {
   const navigate = useNavigate()
-  const { isAuthenticated, setSubscription } = useAuthStore()
+  const { isAuthenticated, subscription, setSubscription } = useAuthStore()
   const [billingCycle, setBillingCycle] = useState<BillingCycle>('monthly')
   const [selectedPlan, setSelectedPlan] = useState<string>(pricingConfig.defaultPlanId)
+  const [activePlanId, setActivePlanId] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const { t } = useTranslation()
@@ -30,6 +31,57 @@ export default function SubscriptionPage() {
       navigate('/signup')
     }
   }, [isAuthenticated, navigate])
+
+  useEffect(() => {
+    if (!isAuthenticated) return
+
+    const normalizePlanName = (value: string) => value.trim().toLowerCase().replace(/\s+/g, '-')
+    const findPricingPlanId = (planName?: string) => {
+      if (!planName) return null
+
+      const normalizedName = normalizePlanName(planName)
+      return (
+        pricingConfig.plans.find((plan) => normalizedName === plan.id || normalizedName.includes(plan.id))?.id ||
+        null
+      )
+    }
+    const findPricingPlanIdByAmount = (amount: number) => {
+      const roundedAmount = Number(amount.toFixed(2))
+
+      return (
+        pricingConfig.plans.find((plan) =>
+          [plan.monthlyPrice, plan.yearlyPrice].some((price) => Number(price.toFixed(2)) === roundedAmount)
+        )?.id || null
+      )
+    }
+
+    const refreshActiveSubscription = async () => {
+      const subscriptionRes = await api.getMySubscription()
+
+      if (!subscriptionRes.success || !subscriptionRes.data) {
+        setActivePlanId(null)
+        return
+      }
+
+      setSubscription(subscriptionRes.data)
+
+      const embeddedPlanId = findPricingPlanId(subscriptionRes.data.plan?.plan_name)
+      if (embeddedPlanId) {
+        setActivePlanId(embeddedPlanId)
+        setSelectedPlan(embeddedPlanId)
+        return
+      }
+
+      const matchedPlanId = findPricingPlanIdByAmount(subscriptionRes.data.amount)
+
+      setActivePlanId(matchedPlanId)
+      if (matchedPlanId) {
+        setSelectedPlan(matchedPlanId)
+      }
+    }
+
+    refreshActiveSubscription()
+  }, [isAuthenticated, setSubscription])
 
   const selected = useMemo(
     () =>
@@ -107,6 +159,7 @@ export default function SubscriptionPage() {
           <div className="grid lg:grid-cols-3 gap-6 lg:gap-8 items-start mb-12">
             {pricingConfig.plans.map((plan, index) => {
               const isSelected = selectedPlan === plan.id
+              const isActiveSubscription = activePlanId === plan.id && subscription?.status === 'active'
               const price = getPlanPrice(plan, billingCycle)
 
               return (
@@ -165,11 +218,15 @@ export default function SubscriptionPage() {
                     </div>
 
                     <div className={`w-full py-3 rounded-xl font-semibold text-sm text-center transition-all mb-8 ${
-                      isSelected
+                      isActiveSubscription
+                        ? plan.popular ? 'bg-white text-theme-success' : 'bg-theme-success/10 text-theme-success'
+                        : isSelected
                         ? plan.popular ? 'bg-white text-theme-primary' : 'bg-theme-primary text-white'
                         : plan.popular ? 'bg-white/15 text-white' : 'bg-theme-bg-secondary text-theme-text-secondary'
                     }`}>
-                      {isSelected ? t('subscription.selectedPlan') : t('subscription.selectPlan')}
+                      {isActiveSubscription
+                        ? t('subscription.activeSubscription')
+                        : isSelected ? t('subscription.selectedPlan') : t('subscription.selectPlan')}
                     </div>
 
                     <div className="space-y-3">
