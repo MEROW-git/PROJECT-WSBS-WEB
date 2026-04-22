@@ -252,6 +252,37 @@
   .demo-text-muted {
     @apply text-slate-400;
   }
+
+  .hero-wave {
+    height: 6.25rem;
+    overflow: hidden;
+  }
+
+  @screen md {
+    .hero-wave {
+      height: 10.5rem;
+    }
+  }
+
+  .hero-wave__svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 200%;
+    height: 100%;
+    will-change: transform;
+  }
+
+  .hero-wave__svg--front {
+    animation: hero-wave-roll 7s linear infinite;
+  }
+
+  .hero-wave__svg--back {
+    opacity: 0.5;
+    bottom: 0.65rem;
+    animation: hero-wave-roll-back 10s linear infinite;
+  }
 }
 
 @layer utilities {
@@ -260,4 +291,28 @@
   .animation-delay-300 { animation-delay: 300ms; }
   .animation-delay-400 { animation-delay: 400ms; }
   .animation-delay-500 { animation-delay: 500ms; }
+}
+
+@keyframes hero-wave-roll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes hero-wave-roll-back {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-wave__svg {
+    animation: none;
+  }
 }

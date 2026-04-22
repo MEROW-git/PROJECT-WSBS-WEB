@@ -45,7 +45,7 @@ export default function LandingPage() {
 
   return (
     <div>
-      <section className="relative min-h-screen gradient-hero overflow-hidden">
+      <section className="hero-section relative min-h-screen gradient-hero overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-10 w-72 h-72 rounded-full blur-3xl bg-[hsl(var(--hero-overlay-primary))]" />
           <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full blur-3xl bg-[hsl(var(--hero-overlay-secondary))]" />
@@ -154,6 +154,41 @@ export default function LandingPage() {
               </div>
             </motion.div>
           </div>
+        </div>
+
+        <div className="hero-wave pointer-events-none absolute inset-x-0 bottom-[-1px] text-theme-bg">
+          <svg
+            className="hero-wave__svg hero-wave__svg--back"
+            viewBox="0 0 2880 180"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M0 94C120 58 240 58 360 94C480 130 600 130 720 94C840 58 960 58 1080 94C1200 130 1320 130 1440 94V180H0V94Z"
+              fill="currentColor"
+            />
+            <path
+              d="M0 94C120 58 240 58 360 94C480 130 600 130 720 94C840 58 960 58 1080 94C1200 130 1320 130 1440 94V180H0V94Z"
+              transform="translate(1440 0)"
+              fill="currentColor"
+            />
+          </svg>
+          <svg
+            className="hero-wave__svg hero-wave__svg--front"
+            viewBox="0 0 2880 180"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M0 78C90 36 180 36 270 78C360 120 450 120 540 78C630 36 720 36 810 78C900 120 990 120 1080 78C1170 36 1260 36 1350 78C1380 92 1410 92 1440 78V180H0V78Z"
+              fill="currentColor"
+            />
+            <path
+              d="M0 78C90 36 180 36 270 78C360 120 450 120 540 78C630 36 720 36 810 78C900 120 990 120 1080 78C1170 36 1260 36 1350 78C1380 92 1410 92 1440 78V180H0V78Z"
+              transform="translate(1440 0)"
+              fill="currentColor"
+            />
+          </svg>
         </div>
       </section>
 
