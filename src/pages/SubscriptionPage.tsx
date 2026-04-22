@@ -6,12 +6,14 @@ import {
   CheckCircle2,
   HelpCircle,
   Loader2,
+  Send,
   X,
 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { api } from '@/lib/api'
 import { useAuthStore } from '@/store/authStore'
 import { getPlanPrice, pricingConfig, type BillingCycle } from '@/config/pricing'
+import { subscriptionConfig } from '@/config/subscription'
 import { useTranslation } from '@/lib/language/i18n'
 
 export default function SubscriptionPage() {
@@ -38,6 +40,7 @@ export default function SubscriptionPage() {
   )
 
   const selectedPrice = getPlanPrice(selected, billingCycle)
+  const useTelegramCheckout = subscriptionConfig.checkoutMode === 'telegram'
 
   const handleActivate = async () => {
     if (!selectedPlan) return
@@ -245,22 +248,34 @@ export default function SubscriptionPage() {
                 </div>
               )}
 
-              <button
-                onClick={handleActivate}
-                disabled={loading}
-                className="w-full btn-primary justify-center disabled:opacity-50"
-              >
-                {loading ? (
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                ) : (
-                  <>
-                    {t('subscription.subscribe')}
-                    <Check className="w-4 h-4 ml-2" />
-                  </>
-                )}
-              </button>
+              {useTelegramCheckout ? (
+                <a
+                  href={subscriptionConfig.telegramContact.telegramUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full btn-primary justify-center"
+                >
+                  {t('subscription.contactTelegram')}
+                  <Send className="w-4 h-4 ml-2" />
+                </a>
+              ) : (
+                <button
+                  onClick={handleActivate}
+                  disabled={loading}
+                  className="w-full btn-primary justify-center disabled:opacity-50"
+                >
+                  {loading ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : (
+                    <>
+                      {t('subscription.subscribe')}
+                      <Check className="w-4 h-4 ml-2" />
+                    </>
+                  )}
+                </button>
+              )}
               <p className="text-xs text-theme-text-muted mt-3 text-center">
-                {t('subscription.afterActivation')}
+                {useTelegramCheckout ? t('subscription.telegramNote') : t('subscription.afterActivation')}
               </p>
             </aside>
           </div>

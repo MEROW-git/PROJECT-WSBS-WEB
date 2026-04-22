@@ -188,6 +188,16 @@
       "owner": "Account Owner",
       "role": "Role",
       "subscription": "Subscription"
+    },
+    "noSubscription": {
+      "action": "Choose a Plan",
+      "badge": "No subscription yet",
+      "panelText": "Choose a plan or contact us on Telegram so we can activate your company subscription.",
+      "panelTitle": "Subscription needed",
+      "status": "No subscription",
+      "subtitle": "Your company account exists, but there is no subscription record yet.",
+      "text": "We could not find an active subscription for this company. Please choose a plan before using the billing system.",
+      "title": "You do not have a subscription yet"
     }
   },
   "features": {
@@ -694,6 +704,7 @@
   "subscription": {
     "afterActivation": "Your account opens in the web dashboard after activation.",
     "billing": "Billing",
+    "contactTelegram": "Contact me via Telegram",
     "eyebrow": "Subscription Required",
     "includesText": "These core modules are available after your subscription is active. Plan limits decide how many users and customers your company can manage.",
     "includesTitle": "What Your Subscription Includes",
@@ -703,6 +714,7 @@
     "selectPlan": "Select Plan",
     "subscribe": "Subscribe",
     "subtitle": "Select a paid plan to complete setup. After activation, you will go to your web dashboard with your company and account information.",
+    "telegramNote": "Message us on Telegram to activate your selected plan.",
     "title": "Choose the Plan for Your Company",
     "errors": {
       "activateFailed": "Failed to activate subscription."
