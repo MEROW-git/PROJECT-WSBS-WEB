@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import { BrowserRouter, HashRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import Layout from '@/components/Layout'
 import LandingPage from '@/pages/LandingPage'
 import AboutPage from '@/pages/AboutPage'
@@ -78,8 +78,10 @@ function RedirectIfAuthenticated({ children }: { children: JSX.Element }) {
 }
 
 export default function App() {
+  const Router = import.meta.env.PROD ? HashRouter : BrowserRouter
+
   return (
-    <BrowserRouter>
+    <Router>
       <AuthSession />
       <Routes>
         {/* Auth pages (no layout) */}
@@ -136,6 +138,6 @@ export default function App() {
           <Route path="/onboarding" element={<Navigate to="/dashboard" replace />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </Router>
   )
 }

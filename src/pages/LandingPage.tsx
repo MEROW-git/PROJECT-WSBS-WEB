@@ -80,8 +80,8 @@ export default function LandingPage() {
                     </>
                   ) : (
                     <>
-                      <Link to="/signup" className="btn-primary">
-                        {t('landing.actions.createAccount')}
+                      <Link to="/features" className="btn-primary">
+                        {t('nav.features')}
                         <ArrowRight className="w-4 h-4 ml-2" />
                       </Link>
                       <Link to="/pricing" className="btn-secondary">{t('landing.actions.viewPlans')}</Link>
@@ -335,8 +335,8 @@ export default function LandingPage() {
                       </>
                     ) : (
                       <>
-                        <Link to="/signup" className="bg-white text-brand-700 px-8 py-3.5 rounded-xl font-semibold hover:bg-brand-50 transition-colors shadow-lg inline-flex items-center gap-2">
-                          {t('landing.actions.createAccount')}
+                        <Link to="/features" className="bg-white text-brand-700 px-8 py-3.5 rounded-xl font-semibold hover:bg-brand-50 transition-colors shadow-lg inline-flex items-center gap-2">
+                          {t('nav.features')}
                           <ChevronRight className="w-4 h-4" />
                         </Link>
                         <Link to="/pricing" className="bg-white/10 backdrop-blur-sm text-white border border-white/20 px-8 py-3.5 rounded-xl font-semibold hover:bg-white/20 transition-colors inline-flex items-center gap-2">

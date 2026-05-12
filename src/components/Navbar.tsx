@@ -253,21 +253,7 @@ export default function Navbar() {
                     {t('common.signOut')}
                   </button>
                 </div>
-              ) : (
-                <>
-                  <Link
-                    to="/login"
-                    className={`text-sm font-medium px-4 py-2 rounded-lg transition-all ${
-                      showBg ? 'text-theme-text-secondary hover:text-theme-text-primary hover:bg-theme-surface-hover' : 'text-white/80 hover:text-white hover:bg-white/10'
-                    }`}
-                  >
-                    {t('common.signIn')}
-                  </Link>
-                  <Link to="/signup" className="btn-primary text-sm py-2.5">
-                    {t('common.getStarted')}
-                  </Link>
-                </>
-              )}
+              ) : null}
             </div>
 
             {/* Mobile Toggle */}
@@ -364,16 +350,7 @@ export default function Navbar() {
                       {t('common.signOut')}
                     </button>
                   </>
-                ) : (
-                  <>
-                    <Link to="/login" className="block px-4 py-3 rounded-xl text-sm font-medium text-theme-text-secondary hover:bg-theme-surface-hover">
-                      {t('common.signIn')}
-                    </Link>
-                    <Link to="/signup" className="block px-4 py-3 rounded-xl text-sm font-semibold text-center text-white bg-brand-600 hover:bg-brand-700">
-                      {t('common.getStarted')}
-                    </Link>
-                  </>
-                )}
+                ) : null}
               </div>
             </div>
           </motion.div>

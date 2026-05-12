@@ -4,16 +4,14 @@ import { Check, HelpCircle } from 'lucide-react'
 import { motion } from 'framer-motion'
 import AnimatedSection from '@/components/AnimatedSection'
 import { getPlanPrice, pricingConfig, type BillingCycle } from '@/config/pricing'
+import { useAuthStore } from '@/store/authStore'
 import { useTranslation } from '@/lib/language/i18n'
 
 export default function PricingPage() {
   const [billingCycle, setBillingCycle] = useState<BillingCycle>('monthly')
   const navigate = useNavigate()
+  const { isAuthenticated } = useAuthStore()
   const { t } = useTranslation()
-
-  const handleSelect = (planId: string) => {
-    navigate('/signup', { state: { selectedPlan: planId, billingCycle } })
-  }
 
   return (
     <div className="pt-24 pb-16 bg-theme-bg">
@@ -103,12 +101,17 @@ export default function PricingPage() {
                 </div>
 
                 <button
-                  onClick={() => handleSelect(plan.id)}
+                  onClick={() => {
+                    if (!isAuthenticated) return
+                    navigate('/subscription', { state: { selectedPlan: plan.id, billingCycle } })
+                  }}
+                  disabled={!isAuthenticated}
                   className={`w-full py-3 rounded-xl font-semibold text-sm transition-all mb-8 ${
                     plan.popular
-                      ? 'bg-white text-theme-primary hover:bg-white/90 shadow-lg'
-                      : 'bg-theme-primary text-white hover:bg-theme-primary-hover shadow-glow'
-                  }`}
+                      ? 'bg-white text-theme-primary shadow-lg'
+                      : 'bg-theme-primary text-white shadow-glow'
+                  } ${!isAuthenticated ? 'cursor-default opacity-70' : plan.popular ? 'hover:bg-white/90' : 'hover:bg-theme-primary-hover'}
+                `}
                 >
                   {t('pricing.choosePlan')}
                 </button>

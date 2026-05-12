@@ -66,8 +66,8 @@ export default function AboutPage() {
             </p>
             {!isLoading && (
               <div className="flex flex-wrap gap-4">
-                <Link to={isAuthenticated ? '/dashboard' : '/signup'} className="btn-primary">
-                  {isAuthenticated ? t('landing.actions.dashboard') : t('landing.actions.createAccount')}
+                <Link to={isAuthenticated ? '/dashboard' : '/features'} className="btn-primary">
+                  {isAuthenticated ? t('landing.actions.dashboard') : t('nav.features')}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
                 <Link to={isAuthenticated ? '/subscription' : '/pricing'} className="btn-secondary">

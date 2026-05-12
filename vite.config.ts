@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 
 export default defineConfig({
+  base: './',
   plugins: [react()],
   resolve: {
     alias: {
@@ -13,7 +14,8 @@ export default defineConfig({
     port: 3000,
   },
   build: {
-    outDir: 'dist',
+    outDir: 'docs',
+    emptyOutDir: true,
     sourcemap: true,
   },
 })
